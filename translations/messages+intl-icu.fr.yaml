@@ -1,0 +1,204 @@
+app:
+  libelle: '<strong>SCO</strong> Rugby'
+  description: Extraire - Recharger - Contrôler
+adresse:
+    lat: Lat.
+    long: Long.
+club:
+    profil: Détail
+    affiliation:
+        label: N° d'affiliation
+        id: "N° d'affiliation : {id}"
+    detail:
+        tab: Club
+    config:
+        membres: Membres
+        equipes: Equipes
+        calendrier: Calendrier
+        match: Matches
+    fiche: Fiche
+    form: Gestion du club
+    creation: Création
+    couleurs: Couleurs
+    logo: Logo
+    equipes: Equipes du club
+    img:
+        alt: logo {club}
+    liste:
+        item: '{club}'
+        titre: Clubs {championnat}
+        desc: liste des clubs {poule}
+config:
+    titre: Configuration
+    description: Le module de configuration permet de paramétrer l'application club.<br />Les rubriques sont détaillées ci-dessous.
+import:
+    rapport:
+        label: Rapport
+        help: Liste restreinte des fichiers provenant de Oval-e
+    fichier:
+        label: Fichier à importer
+        help: '<span class="me-1">&#9888;</span>Ce fichier doit être <strong>sans modification</strong> au format Excel <em>.xlsx</em>'
+    header:
+        libelle: Import
+        description: Importer un rapport d'Oval-e
+    stepper:
+        rapport: Rapport
+        fichier: Fichier
+        resultat: Résultat
+    submit: Importer
+    description: Importer des fichiers en provenance Oval-e pour les intégrer dans la base de données.
+chargement:
+    message: Chargement...
+calendrier:
+    liste:
+        titre: Calendrier
+        desc: Calendrier {club}
+equipe:
+#    nom-court:
+#        label: 'Nom abbrégé'
+#        placeholder: ''
+#        help: ''
+#    description:
+#        label: Description
+#        help: ''
+#    logo:
+#        label: 'Logo equipe'
+#        help: '' #"Logo spécifique à l'équipe (logo du club par defaut)"
+#        placeholder: ''#"Entrer le logo de l'équipe"
+    detail:
+        tab: Equipe
+    liste:
+        titre: 'Gestion des équipes'
+        desc: '{club}'
+    stats:
+        match: 'Matches {equipe}'
+        info: Infos
+evenement:
+    match: Match
+    date_heure: '{date} à {heure}'
+    inscription: >-
+        {inscrit, select,
+            non   {Ne viendra pas}
+            oui   {Viendra}
+            other {Pas encore déclaré}
+        }
+    liste:
+        titre: Mon agenda
+        desc: Calendrier des évènements
+joueur:
+    liste:
+        joueurs: Joueurs
+        non_declares: Non déclarés
+        indisponibles: Indisponibles
+    stats:
+        titre: Mes Stats
+        participation: Ma participation
+        hint:
+            match: '% des matches'
+            entrainement: '% des entraînements'
+match:
+    versus:
+        abr: vs
+        long: versus
+    inscription: >-
+        {inscrit, select,
+            non   {Ne jouera pas}
+            oui   {Jouera}
+            other {Pas encore déclaré}
+        }
+    liste:
+        titre: Matches {equipe}
+        desc: Saison {saison}
+    accident:
+        tab: Déclaration accident
+        declarer: Déclarer
+    detail:
+        tab: Match
+    graphe:
+        gagne:   Gagné
+        perdu:   Perdu
+        nul:     Nul
+        forfait: Forfait
+        annule:  Annulé
+    feuille:
+        tab: Feuille de match
+        envoyer: Envoyer
+        pdf: PDF
+    prochain: Prochain Match
+membre:
+    salutation: Bienvenue
+    login: Infos connexion
+    contact: Coordonnées
+    joueur: Joueur
+    photo: Photo
+    annuaire:
+        titre: Annuaire
+        desc: Annuaire des membres
+        hint:
+            club: Liste du staff du club
+            equipe: Liste des membres de l'équipe
+            poule: Liste des référents de la section Loisir "Chevalier de l'Ovalie"
+    liste:
+        titre: Membres
+        desc: Liste des membres
+menu:
+    item:
+        accueil: Accueil
+        agenda: Agenda
+        annuaire: Annuaire
+        backend: Administration
+        config: Mon club
+        club: Mon club
+        clubs: Clubs
+        matches: Matches
+        membres: Liste des membres
+        message: Message
+        notification: Notifications
+message:
+    code:
+        alerte: Alerte
+        erreur: erreur
+        notfound: Non trouvé
+        unavailable: Indisponible
+        parameter: Paramètre
+        context: Contexte
+        ok: OK
+    besoin-js: Le support JavaScript doit être activé pour ce site.
+    liste:
+        titre: Messages
+        desc: lites des messages
+        notification: >
+            {nbr, plural,
+                =0    {Aucun message}
+                one   {1 seul message}
+                other {Vous avez # messages!}
+            }
+        voir_tout: Voir tous les messages
+    notification:
+        notification: >
+            {nbr, plural,
+                =0    {Aucune notification}
+                one   {1 seule notification}
+                other {Vous avez # notifications!}
+            }
+        voir_tout: Voir toutes les notifications
+    nouveau: Nouveau message
+    repertoires:
+        titre: Répertoires
+        inbox: Boîte de réception
+        envoye: Envoyés
+        brouillon: Brouillon
+        corbeille: Corbeille
+toolbar:
+    enregistrer: Enregistrer
+    fermer: Fermer
+    suivant: Suivant
+    precedent: Précédent
+version:
+    id: Version {version}
+placeholder:
+    dropzone: Glisser/Déposer ou sélectionner le fichier
+    social:
+        url: Compte du réseau
+    message:
+        rechercher: Rechercher

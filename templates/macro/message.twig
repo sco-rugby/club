@@ -1,0 +1,13 @@
+{% macro erreur(titre, code, message, type='warning') %}
+    <div class="col d-flex align-items-center">
+        <section class="message {{ 'text-' ~ type }} clearfix">
+            <header>
+                <h1 class="title">{{ titre }}</h1>
+                <h1 class="code">{{ code }}</h1>
+            </header>
+            <div class="body">
+                <p>{{ message }}</p>
+            </div>
+        </section>
+    </div>
+{% endmacro erreur %}

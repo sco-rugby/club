@@ -1,0 +1,722 @@
+{###################
+    Helper
+####################}
+{# filter #}
+{# type: checkbox|radio|text|button, {"data-group": '', "data-path": '' } #}
+{% macro filter(type, filter) %}
+    {####################
+       default values
+     ####################}
+    {# filter.type #}
+    {% if filter.type is not defined %}
+        {% set filter = filter|merge({"type": 'path'}) %}
+    {% endif %}
+    {# default path, used in id and name. path is MANDATORY #}
+    {% if filter.path is not defined and filter.type == 'path' %}
+        {% set filter = filter|merge({"path": '.default'}) %}
+    {% endif %}
+    {# filter.value, value is used only for filter #}
+    {% if filter.type == 'text' and filter.value is not defined %}
+        {% set filter = filter|merge({"value": ''}) %}
+    {% endif %}
+    {# default group, used in "name" #}
+    {% if filter.group is not defined %}
+        {% set filter = filter|merge({"group": 'filter-group'}) %}
+    {% endif %}
+    {# id #}
+    {% if filter.id is defined %}
+        {% set id = filter.id %}
+    {% else %}
+        {% set id = [type|title] %}
+        {% if filter.path is defined %}
+            {% set id = id|merge([filter.path|replace({'.': ''})|title]) %}
+        {% endif %}
+        {% if filter.value is defined and filter.value is not empty %}
+            {% set id = id|merge([filter.value|title]) %}
+        {% else %}
+            {% set id = id|merge(['Default']) %}
+        {% endif %}
+        {% set id = id|join('')|replace({'-': '', '.': '', '_': ''}) %}
+    {% endif %}
+    {% set id = id|replace({' ': ''}) %}
+    {####################
+          Attributes
+     ####################}
+    {# type #}
+    {% set attr = {'type': type} %}
+    {# id #}
+    {% set attr = attr|merge({"id": id}) %}
+    {% set attr = attr|merge({"data-action": 'filtre'}) %}
+    {# name (only for radio) #}
+    {% if type == 'radio' %}
+        {% set name = [type|title] %}
+        {% if filter.type|lower == 'text' %}
+            {% set name = name|merge([filter.path|title]) %}
+            {#% set name = "#{type} #{filter.path}"|title|replace({" ": "", ".": ""}) %#}
+        {% else %}
+            {% set name = name|merge([filter.group|title]) %}
+            {% set name = name|merge(["Options"]) %}
+            {#% set name = "#{type} #{filter.group} Options"|title|replace({" ": "", ".": ""}) %#}
+        {% endif %}
+        {% set name = name|merge(["[]"])|join('')|replace({'-': '', '.': '', '_': ''}) %}
+        {% set attr = attr|merge({"name": name}) %}
+    {% endif %}
+    {# value|data-text #}
+    {% if filter.type|lower == 'text' %}
+        {% if type == 'button' %}
+            {% set attr = attr|merge({"data-text": filter.value}) %}
+        {% else %}
+            {% set attr = attr|merge({"value": filter.value}) %}
+        {% endif %}
+    {% endif %}
+    {# data-group: Defines group of items that should be sorted. #}
+    {% set attr = attr|merge({"data-group":  filter.group|lower}) %}
+    {# data-path: CSS selector that defines the HTML element that should be sorted "default" keyword for the initial value or any CSS selector #}
+    {% set attr = attr|merge({"data-path":  filter.path|lower}) %}
+    {# data-name: The data-name attribute is used to identify the same controls in different panels. Different controls should have different data-name attributes. By default, data-name attribute has default value.	any text value #}
+    {% if filter.name is defined %}
+        {% set name = filter.name %}
+    {% else %}
+        {% set name = filter.path|replace({'.':''}) %}
+    {% endif %}
+    {% set attr = attr|merge({"data-name":  name}) %}
+    {# data-jplist-control : Defines radio buttons sort control. ex: checkbox-path-filter #}
+    {# data-jplist-control="sort-buttons" #}
+    {# data-jplist-control="radio-buttons-sort" #}
+    {# data-jplist-control="checkbox-sort" #}
+    {# data-jplist-control="select-sort" #}
+    {% if filter.control is defined %}
+        {% set attr = attr|merge({"data-jplist-control":  filter.control|lower}) %}
+    {% elseif type == 'button' %}
+        {% set attr = attr|merge({"data-jplist-control":  "buttons-#{filter.type}-filter"|lower}) %}
+    {% else %}
+        {% set attr = attr|merge({"data-jplist-control":  "#{type}-#{filter.type}-filter"|lower}) %}
+    {% endif %}
+    {# data-mode: Defines filter behaviour.radio*|checkbox #}
+    {% if type == 'button' %}
+        {% if filter.mode is defined %}
+            {% set mode = filter.mode %}
+        {% else %}
+            {% set mode = 'radio' %}
+        {% endif %}
+        {% set attr = attr|merge({"data-mode": mode}) %}
+    {% endif %}
+    {# data-or #}
+    {% if filter.or_group is defined %}
+        {% set attr = attr|merge({"data-or": filter.or_group}) %}
+    {% endif %}
+    {####################
+         optional
+     ####################}
+    {# data-order: Specifies the sort order = asc|desc #}
+    {% if filter.order is defined %}
+        {% set attr = attr|merge({"data-order":  filter.order|lower}) %}
+    {% endif %}
+    {# data-type: Specifies the type of content that should be sorted = text|number|datetime #}
+    {% if filter.datatype is defined %}
+        {% set attr = attr|merge({"data-type":  filter.datatype|lower}) %}
+    {% endif %}
+    {# data-datetime-format: This attribute is used when data-type="datetime". It defines the structure of the date using following wildcards: {year}, {month}, {day}, {hour}, {min}, {sec}.	Date structure, for example: data-datetime-format="{month} {day}, {year}" #}
+    {% if filter.datetime is defined %}
+        {% set attr = attr|merge({"data-datetime":  filter.datetime|lower}) %}
+    {% endif %}
+    {# data-jump: This data attribute can be used to scroll page to the specified location when user changes a checkbox value. data-jump="top" scrolls page to the top. Any CSS selector can be used instead of top keyword.	top keyword or any CSS selector #}
+    {% if filter.jump is defined %}
+        {% set attr = attr|merge({"data-jump":  filter.jump|lower}) %}
+    {% endif %}
+    {# data-id: This attribute is used for deep linking. #}
+    {% if filter.id is defined %}
+        {#% set attr = attr|merge({"data-id":  filter.id}) %#}
+    {% endif %}
+    {# data-filtre: #}
+    {% if filter.filtre is defined %}
+        {% set attr = attr|merge({"data-filtre":  filter.filtre}) %}
+    {% endif %}
+    {# Checked|data-selected #}
+    {% if filter.active is defined and filter.active %}
+        {% set attributes = [] %}
+        {% if filter.attr is defined  %}
+            {% set attributes = filter.attr %}
+        {% endif %}
+        {% set class = [] %}
+        {% if filter.attr.class is defined %}
+            {% set class = filter.attr.class|split(' ') %}
+        {% endif %}
+        {% set class = class|merge(['active']) %}
+        {% set attributes = attributes|merge({"class": class|join(' ')}) %}
+        {% set filter = filter|merge({'attr': attributes}) %}
+        {% if type in ['radio', 'checkbox']%}
+            {% set attr = attr|merge({"checked": true}) %}
+            {% set attr = attr|merge({"data-selected": true}) %}
+        {% endif %}
+    {% endif %}
+
+    {% if filter.attr is defined %}
+        {% set attr = attr|merge(filter.attr) %}
+    {% endif %}
+    {# render #}
+    {% if type == 'button'%}
+        {% if filter.icon is defined %}
+            {% set attr = attr|merge({'icon': filter.icon}) %}
+        {% endif %}
+        {{ content('button', filter.label, attr) }}
+    {% else %}
+        {{ tag('input', attr, 'true') }}
+    {% endif %}
+{% endmacro filter %}
+
+{###################
+      Layout
+####################}
+{# heading #}
+{% macro heading(heading, target, collapsed) %}
+    <div class="filter-heading d-flex align-items-center">
+        <div class="small">{{ heading }}</div>
+        <button class="btn ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#{{ target }}" aria-expanded="{% if collapsed == true %}false{% else %}true{% endif %}" aria-controls="{{ target }}">
+            {% if collapsed == true %}
+                <i class="bi bi-chevron-down"></i>
+            {% else %}
+                <i class="bi bi-chevron-up"></i>
+            {% endif %}
+        </button>
+    </div>
+{% endmacro heading %}
+{# views #}
+{% macro views(label, nb, filter) %}
+    {# data-selected="true" #}
+    {% set viewGrid = '<i class="fas fa-th"></i><span class="view-label">' ~ 'filtre.vue.quadrillage'|trans({}, 'filtre')  ~ '</span>' %}
+    {% set viewList = '<i class="fas fa-list-ul"></i><span class="view-label">' ~ 'filtre.vue.liste'|trans({}, 'filtre')  ~ '</span>' %}
+    {% set viewThumb = '<i class="fas fa-th-large"></i><span class="view-label">' ~ 'filtre.vue.vignette'|trans({}, 'filtre')  ~ '</span>' %}
+    {% set attr = {'href': '#'} %}
+    {% set attr = attr|merge({'class': 'nav-link'}) %}
+    {% set attr = attr|merge({'data-jplist-control': 'layout'}) %}
+    {% set attr = attr|merge({'data-group': filter.group}) %}
+    {% if filter.name is defined %}
+        {% set attr = attr|merge({'data-name': filter.name}) %}
+    {% endif %}
+    <ul class="ms-auto nav align-items-center list-inline filter-views">
+        <li class="filter-view">
+            {{ content('a', viewGrid, attr|merge({'data-class': 'jplist-grid','data-selected': 'true'})) }}
+        </li>
+        <li class="filter-view">
+            {{ content('a', viewList, attr|merge({'data-class': 'jplist-list'})) }}
+        </li>
+        <li class="filter-view">
+            {{ content('a', viewThumb, attr|merge({'data-class': 'jplist-thumb'})) }}
+        <li>
+            <span class="badge badge-outline-filter">{{ nb }}</span>
+            <span class="text-muted">{{ label }}</span>
+        </li>
+    </ul>
+{% endmacro views %}
+{# info filtres appliques #}
+{% macro info(id) %}
+    {% from "macro/tag.twig" import chips %}
+    <div id="{{ id }}Wapper" class="d-flex align-items-center">
+        <div id="ChipFilterTemplate" style="display: none;">
+            <span class="chip chip-filter">
+                <span class="chip-label"></span>
+                <span class="close px-1">&times;</span>
+            </span>
+        </div>
+        <small class="text-muted filter-label me-3">{{ 'filtre.appliques'|trans({}, 'filtre') }}:</small>
+        {{ chips(id, []) }}
+    </div>
+    <script type="text/javascript">
+        /*        $(document).ready(function (e) {
+         $(document).on('click', '[data-action="filtre"]', function (e) {
+         if ($(this).prop('checked')) {
+         var content = $('#ChipFilterTemplate').clone();
+         var span = $(content).find(".chip-label");
+         $(span).text($(this).data('filtre'));
+         $(content).children('.chip-filter').attr('data-source', '#' + $(this).attr('id'));
+         $(content).children().each(function () {
+         $("#{{ id }}").append($(this));
+         });
+         } else {
+         $("#{{ id }}").find('[data-source="#' + $(this).attr('id') + '"]').remove();
+         }
+         });
+         $(' [data-jplist-control="reset"]').click(function (e) {
+         $("#{{ id }}").empty();
+         });
+         $(document).on('click', '#{{ id }} .close', function (e) {
+         _source = $(this).parent().data('source');
+         $(_source).prop('checked', false).removeClass('jplist-selected');
+         console.log($(_source));
+         });
+         });*/
+    </script>
+{% endmacro info %}
+{# no results control #}
+{% macro no_result(label, filter) %}
+    {% from "macro/message.twig" import message %}
+    <!-- no results control -->               
+    <div class="w-100" data-jplist-control="no-results" data-group="{{ filter.group }}" data-name="no-results">
+        {{ message.erreur( 'filtre.libelle'|trans({}, 'filtre'), label, 'filtre.not_found'|trans({}, 'filtre'), 'not-found') }}
+    </div>
+{% endmacro no_result %}
+{# pagination control #}
+{% macro pagination(filter, pagination = null) %}
+    {% if pagination is null %}
+        {% set  pagination = {}%}
+    {% endif %}
+    {% if pagination.perPage is not defined %}
+        {% set pagination = pagination|merge({'perPage': 6}) %}
+    {% endif %}
+    {% if pagination.max is not defined %}
+        {% set pagination = pagination|merge({'max': pagination.perPage*5}) %}
+    {% endif %}
+    <!-- pagination control -->
+    <nav
+        data-jplist-control="pagination"
+        data-group="{{ filter.group }}"
+        data-items-per-page="{{ pagination.perPage }}"
+        data-current-page="0"
+        data-disabled-class="disabled"
+        data-selected-class="active"
+        data-name="pagination1">
+        <!-- first and previous buttons -->
+        <ul class="pagination d-inline-flex">
+            <li class="page-item" data-type="first"><a class="page-link" href="#">&laquo;</a></li>
+            <li class="page-item" data-type="prev"><a class="page-link" href="#">‹</a></li>
+        </ul>
+        <!-- pages buttons -->
+        <ul class="pagination d-inline-flex" data-type="pages">
+            <li class="page-item" data-type="page"><a class="page-link" href="#">{pageNumber}</a></li>
+        </ul>
+        <!-- next and last buttons -->
+        <ul class="pagination d-inline-flex">
+            <li class="page-item" data-type="next"><a class="page-link" href="#">›</a></li>
+            <li class="page-item" data-type="last"><a class="page-link" href="#">&raquo;</a></li>
+        </ul>
+        <!-- items per page dropdown -->
+        <div class="dropdown d-inline-flex ms-3" data-type="items-per-page-dd" data-opened-class="show">
+            <button type="button" data-type="panel" class="btn btn-outline-primary dropdown-toggle" ></button>
+            <div data-type="content" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for i in range(pagination.perPage, pagination.max, pagination.perPage) %}
+                    <a class="dropdown-item" href="#" data-value="{{ i }}">{{ 'pagination.parPage'|trans({'nb': i}, 'filtre') }}</a>
+                {% endfor %}
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item font-weight-bold" href="#" data-value="0">{{ 'pagination.voirTout'|trans({}, 'filtre') }}</a>
+            </div>
+        </div>
+        <!-- information labels -->
+        <small data-type="info" class="text-muted ms-3">
+            {{ 'pagination.info.pages'|trans({}, 'filtre') }} - {{ 'pagination.info.items'|trans({}, 'filtre') }}
+        </small>
+    </nav>
+{% endmacro pagination %}
+{# group #}
+{% macro group(heading, filter, liste) %}
+    <div class="py-3 filter-group">
+        <div class="dropdown">
+            <a class="dropdown-toggle" id="{{ heading|lower|replace({' ': ''}) ~ 'DropdownToggle' }}" data-toggle="dropdown">
+                {#{ _self.heading(heading) }#}
+                {{ heading }}
+            </a>
+            <ul class="checkbox-list dropdown-menu">
+                {% for element in liste %}
+                    <li class="dropdown-item">
+                        <div class="form-inline d-flex align-items-center py-1">
+                            {{ _self.filter('checkbox', filter, element) }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endmacro group %}
+
+{###################
+      Inline
+####################}
+{# checkbox_inline #}
+{% macro checkbox_inline(id, liste) %}
+    {{ _self.filter_inline(id, 'checkbox', liste) }}
+{% endmacro checkbox_inline %}
+{# radio_inline #}
+{% macro radio_inline(id, liste) %}
+    {{ _self.filter_inline(id, 'radio', liste) }}
+{% endmacro radio_inline %}
+{# filter_inline #}
+{% macro filter_inline(id, type, liste) %}
+    <div id="{{ id }}" class="form-inline d-flex align-items-center my-2 me-lg-2 filter-{{ type }} border">
+        {% for element in liste %}
+            {{ _self.choice(type, element) }}
+        {% endfor %}
+    </div>
+{% endmacro filter_inline %}
+{# button_inline #}
+{% macro button_inline(id, liste, titre = null) %}
+    <div id="{{ id }}" class="btn-group" role="group">
+        {% if titre is not empty %}
+            <div class="input-group-prepend">
+                <span class="input-group-text">{{ titre }}</span>
+            </div>
+        {% endif %}
+        {% for element in liste %}
+            {{ _self.button(element) }}
+        {% endfor %}
+    </div>
+{% endmacro button_inline %}
+
+{###################
+      Liste
+###################}
+{# liste_info #}
+{% macro liste_info(titre, liste, options) %}
+    <div class="col-3 d-flex flex-column">
+        <div class="py-3">
+            {{ _self.heading(titre) }}
+            <ul class="list-group-flush p-0">
+                {% for categorie in categories %}
+                    <!--<li class="list-group-item categorie">
+                      <div class="d-flex w-100">
+                        <span class="flex-grow-1">{{ liste.libelle }}</span>
+                        <span class="badge badge-outline-primary badge-pill">{{ liste.nb }}</span>
+                      </div>
+                      <div class="metadata">{{ liste.theme }}</div>
+                    </li>-->
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endmacro liste_info %}
+{# liste_filtre #}
+{% macro liste_filtre(id, titre, liste, options) %}
+    {% set targetId = "#{id}Liste" %}
+    {% if options.class is not defined %}
+        {% set options = options|merge({"class": []}) %}
+    {% endif %}
+    {% if options.collapsed is not defined %}
+        {% set options = options|merge({"collapsed": false}) %}
+    {% endif %}
+    <div id="{{ id }}" class="{{ options.class|join(' ') }}">
+        {{ _self.heading(titre, targetId, options.collapsed) }}
+        <div id="{{ targetId }}" class="inner-box mt-2 me-1 collapse{% if options.collapsed == false %} show{% endif %}">
+            {% for element in liste %}
+                {% if element is not iterable %}
+                    {% set item = {"label": element} %}
+                    {% set item = item|merge({"value": element|lower}) %}
+                    {% set item = item|merge({"path": '.' ~ options.filtre|lower}) %}
+                {% else %}
+                    {% set item = element %}
+                {% endif %}
+                {% set item = item|merge({"filtre": "#{titre} : #{item.label}"}) %}
+                {% if item.checked is defined %}
+                    {% set item = item|merge({"active": item.checked}) %}
+                {% endif %}
+                <div class="my-1 filter-{{ options.type }}">
+                    {{ _self.choice(options.type, item) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro liste_filtre %}
+{# liste_rating #}
+{% macro liste_rating(id, titre, filtre, options = []) %}
+    {% set targetId = "#{id}Liste" %}
+    {# filtre #}
+    {% if filtre.path is not defined %}
+        {% set filtre = filtre|merge({"path": '.rating'}) %}
+    {% endif %}
+    {% if filtre.type is not defined %}
+        {% set filtre = filtre|merge({"type": 'text'}) %}
+    {% endif %}
+
+    {# options #}
+    {% if options.type is not defined %}
+        {% set options = options|merge({"type": 'checkbox'}) %}
+    {% endif %}
+    {% if options.class is not defined %}
+        {% set options = options|merge({"class": []}) %}
+    {% endif %}
+    {% if options.min is not defined %}
+        {% set options = options|merge({"min": 1}) %}
+    {% endif %}
+    {% if options.max is not defined %}
+        {% set options = options|merge({"max": 4}) %}
+    {% endif %}
+    {% if options.name is not defined %}
+        {% set options = options|merge({"name": filtre.path|replace({'.': ''})}) %}
+    {% endif %}
+    <div  id="{{ id }}" class="{{ options.class|join(' ') }}">
+        {{ _self.heading(titre, targetId) }}
+        <div id="{{ targetId }}" class="inner-box mt-2 me-1 collapse show">
+            {% for i in options.min..options.max %}
+                {% set note = options.max - (i-1) %}
+                {{ _self.rating_item(options.type, options.name, options.min, options.max, note, filtre) }}
+            {% endfor %}
+            {% if options.vide is not defined %}
+                {% set options = options|merge({"vide": true}) %}
+            {% endif %}
+            {% if options.vide == true %}
+                {{ _self.rating_item(options.type, options.name, options.min, options.max, 0, filtre) }}
+            {% endif %}
+        </div>
+    </div>
+{% endmacro liste_rating %}
+{# rating_item #}
+{% macro rating_item(type, name, min, max, current, element) %}
+    {% from "macro/tag.twig" import note %}
+    {% set options = {'min':{'class': ['text-muted']}, 'max':{'class': ['text-warning']}} %}
+    {#<div class="form-inline d-flex align-items-center py-1 filter-{{ type }}">#}
+    <div class="my-1 filter-{{ type }}">
+        <label>
+            {% set element = element|merge({'id': "#{name}-#{current}"}) %}
+            {% if element.type == 'text' %}
+                {% set element = element|merge({'value': current}) %}
+            {% else %}
+                {% set element = element|merge({'path': element.path ~ '-' ~ current}) %}
+            {% endif %}
+            {% set element = element|merge({"filtre": 'note.filtre'|trans({}, 'filtre') ~ " : #{current}"}) %}
+            {% set element = element|merge({'name': type~element.path|replace({'.': ''})|title}) %}
+            {{ note(min, max, current, options) }}
+            {{ _self.filter(type, element) }}
+            <span class="checkmark"></span>
+        </label>
+    </div>
+{% endmacro rating_item %}
+
+{###################
+      Accordion
+###################}
+{% macro accordion_header(id, titre, targetId, collapsed) %}
+    <!--<div class="filter-heading d-flex align-items-center">-->
+    <div class="accordion-header filter-heading" id="{{ id }}">
+        <!--<div class="small">{{ titre }}</div>
+        <button class="btn ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#{{ targetId }}" aria-expanded="{% if collapsed == true %}false{% else %}true{% endif %}" aria-controls="{{ targetId }}">
+        {% if collapsed == true %}
+            <i class="bi bi-chevron-down"></i>
+        {% else %}
+            <i class="bi bi-chevron-up"></i>
+        {% endif %}
+        </button>
+        </div>-->
+        <button class="accordion-button collapsed p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ targetId }}" aria-expanded="{% if collapsed == true %}false{% else %}true{% endif %}" aria-controls="{{ targetId }}">
+            {{ titre|raw }}
+        </button>
+    </div>
+{% endmacro accordion_header %}
+{% macro accordion_item(id, parentId, titre, liste, options) %}
+    {% from "macro/tag.twig" import search %}
+    {% set toggleId = "#{id}Entete" %}
+    {% set targetId = "#{id}Liste" %}
+    {% set searchId = "#{id}Search" %}
+    {% if options.class is not defined %}
+        {% set options = options|merge({"class": []}) %}
+    {% endif %}
+    {% if options.collapsed is not defined %}
+        {% set options = options|merge({"collapsed": false}) %}
+    {% endif %}
+    <div class="accordion-item filter-box bg-light">
+        {{ _self.accordion_header(toggleId, titre, targetId, options.collapsed) }}
+        <div id="{{ targetId }}" class="accordion-collapse collapse{% if options.collapsed == false %} show{% endif %}" aria-labelledby="{{ toggleId }}" data-bs-parent="#{{ parentId }}">
+            <div class="accordion-body mt-2">
+                {{ search(searchId, {'class': ['mb-3']}) }}
+                <div class="item-box scrollarea">
+                    {% for element in liste %}
+                        {% if element is not iterable %}
+                            {#% set item = {"label": element} %#}
+                            {#% set item = item|merge({"value": element|lower}) %#}
+                            {#% set item = item|merge({"path": '.' ~ options.filtre|lower}) %#}
+                        {% else %}
+                            {#% set item = element %#}
+                        {% endif %}
+                        {#% set item = item|merge({"filtre": "#{titre} : #{item.label}"}) %#}
+                        {#% if item.checked is defined %}
+                            {% set item = item|merge({"active": item.checked}) %}
+                        {% endif %#}
+                        <div class="my-1 filter-{{ options.type }}">
+                            {#{ _self.choice(options.type, item) }#}
+                            {#%  set itemId = id~item.value|lower|title %#}
+                            {%  set itemId = "" %}
+                            {{ dump(element) }}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{#{ item.value }#}" name="{#{ item.name }#}[]" id="{{ itemId }}" {#% if item.checked is defined %}checked{% endif %#}>
+                                <label class="form-check-label" for="{{ itemId }}">
+                                    {#{ item.label }#}
+                                </label>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro accordion_item %}
+
+{###################
+      Control
+###################}
+{# select #}
+{# only sort or path filter #}
+{#    Filter #}
+{#<select data-jplist-control="select-filter" data-group="group1" data-name="name1">
+    <option value="0" data-path="default">Filter by</option>
+    <option value="1" data-path=".title" selected>Title</option>
+    <option value="2" data-path=".likes">Likes</option>
+</select>#}
+{# sort #}
+{#<select data-jplist-control="select-sort" data-group="group1" data-name="name1">
+    <option value="0" data-path="default">Sort by</option>
+    <option value="1" data-path=".title" data-order="asc" data-type="text" selected>Title A-Z</option>
+    <option value="2" data-path=".title" data-order="desc" data-type="text">Title Z-A</option>
+{# buttons #}
+{% macro button(filter) %}
+    {% if filter.attr is defined  %}
+        {% set attr = filter.attr %}
+    {% else %}
+        {% set attr = [] %}
+    {% endif %}
+    {% set attr = {'class': 'btn btn-outline-secondary'}|merge(attr) %}
+    {% set filter = filter|merge({'attr': attr}) %}
+    {{ _self.filter('button', filter) }}
+{% endmacro button %}
+{# dropdown #}
+{# only sort or path filter #}
+{# filter #}
+{#<div data-jplist-control="dropdown-filter" data-group="data-group-1" data-name="name1" class="jplist-dd">
+    <div data-type="panel" class="jplist-dd-panel">Filter by</div>
+    <div data-type="content" class="jplist-dd-content">
+        <div data-value="0" data-path="default" class="jplist-dd-item">Filter by</div>
+        <div data-value="1" data-path=".title" class="jplist-dd-item" data-selected="true">Title</div>
+        <div data-value="2" data-path=".likes" class="jplist-dd-item">Likes</div>
+        <div data-value="3" data-path=".views" class="jplist-dd-item">Views</div>
+    </div>
+</div>#}
+{# sort #}
+{#<div data-jplist-control="dropdown-sort" class="jplist-dd" data-group="data-group-1" data-name="sorttitle">
+    <div data-type="panel" class="jplist-dd-panel">Sort by</div>
+    <div data-type="content" class="jplist-dd-content">
+        <div class="jplist-dd-item" data-path="default">Sort by</div>
+        <div class="jplist-dd-item" data-path=".name" data-order="asc" data-type="text" data-selected="true">Name A-Z</div>
+        <div class="jplist-dd-item" data-path=".name" data-order="desc" data-type="text">Name Z-A</div>
+    </div>
+</div>#}
+{# Choice #}
+{% macro choice(type, element) %}
+    <label>
+        {{ element.label }}
+        {{ _self.filter(type, element) }}
+        <span class="checkmark"></span>
+    </label>
+{% endmacro %}
+{# Search #}
+{% macro search(id, filter) %}
+    {% set btnId = id ~ 'Btn' %}
+    {# searchbox can be only text based filter #}
+    {% set filter = filter|merge({'control': 'textbox-filter'}) %}
+    {% set filter = filter|merge({'type': 'text'}) %}
+    {% set filter = filter|merge({'value': ''}) %}
+
+    {% set attr = {'data-action': 'search'} %}
+    {% set attr = attr|merge({'class': 'form-control'}) %}
+    {% if filter is defined %}
+        {% set attr = attr|merge({'placeholder': filter.placeholder}) %}
+    {% endif %}
+    {% set attr = attr|merge({'data-clear-btn-id': btnId}) %}
+
+    {% set filter = filter|merge({'attr': attr}) %}
+    {# input-group #}
+    <div id="{{ id }}" class="form-floating search input-group">
+        <i class="fa fa-search"></i>
+        {{ _self.filter('search', filter) }}
+        <label for="FiltreText">{{ attr.placeholder }}</label>
+        <div class="input-group-append">
+            {{ content('button', 'effacer'|trans({}, 'action'),{'type': 'button', 'id': btnId, 'class': 'btn btn-outline-primary'}) }}
+        </div>
+    </div>
+{% endmacro search %}
+{# slider #}
+{% macro slider(id, filter) %}
+    <div
+        data-jplist-control="slider-range-filter"
+        data-path=".price"
+        data-group="prices-group-1"
+        data-name="price-filter-1"
+        data-min="1"
+        data-from="100"
+        data-to="500"
+        data-max="1000">
+
+        <div class="jplist-slider" data-type="slider"></div>
+
+        <div class="">
+
+        </div>
+    </div>
+
+    <div class="collapse show" id="{{ id }}">
+        <div class="middle">
+            <div class="multi-range-slider"> <input type="range" id="input-left" min="0" max="100" value="10"> <input type="range" id="input-right" min="0" max="100" value="50">
+                <div class="slider">
+                    <div class="track"></div>
+                    <div class="range" style="left: 10%; right: 50%;"></div>
+                    <div class="thumb left" style="left: 10%;"></div>
+                    <div class="thumb right" style="right: 50%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-between mt-2 jplist-slider-values">
+            <div><span id="amount-left" class="font-weight-bold">1000</span> uah </div>
+            <div><span id="amount-right" class="font-weight-bold">5000</span> uah </div>
+            <b>Min:</b> <span data-type="min"></span>,
+            <b>Value 1:</b> <span data-type="value-1"></span>,
+            <b>Value 2:</b> <span data-type="value-2"></span>,
+            <b>Max:</b> <span data-type="max"></span>
+        </div>
+    </div>
+{% endmacro slider %}
+{# range #}
+{% macro range(id, filter) %}
+    <div class="buttons">
+
+        <button
+            data-jplist-control="buttons-range-filter"
+            data-path=".price"
+            data-group="data-group-1"
+            data-name="name1"
+            data-selected="true"
+            data-to="100">
+            Price: <=100
+        </button>
+
+        <button
+            data-jplist-control="buttons-range-filter"
+            data-path=".price"
+            data-group="data-group-1"
+            data-name="name1"
+            data-from="101"
+            data-to="500">
+            Price: 101 - 500
+        </button>
+
+        <button
+            data-jplist-control="buttons-range-filter"
+            data-path=".price"
+            data-group="data-group-1"
+            data-name="name1"
+            data-from="501">
+            Price: >=501
+        </button>
+
+    </div>
+{% endmacro %}
+{# reset button #}
+{% macro reset(filter) %}
+    {% if filter.attr is defined  %}
+        {% set attr = filter.attr %}
+    {% else %}
+        {% set attr = [] %}
+    {% endif %}
+    {% set attr = attr|merge({'type': 'reset'}) %}
+    {% set attr = attr|merge({'data-jplist-control': 'reset'}) %}
+    {% set attr = attr|merge({'data-name': 'reset'}) %}
+    {% set attr = attr|merge({'data-group': filter.group}) %}
+    {% set attr = attr|merge({'class': 'btn btn-outline-secondary btn-reset'}) %}
+    {% set attr = attr|merge({'icon': 'bi-arrow-clockwise'}) %}
+    {% set contenu = icon('bi-arrow-clockwise') ~ '<span class="btn-label ms-2">' ~ 'raz'|trans({}, 'action') ~ '</span>' %}
+    {{ content('button', contenu,attr) }}
+{% endmacro reset %}

@@ -1,0 +1,17 @@
+version: "3.4"
+
+services:
+  php:
+    build:
+      context: .
+      target: symfony_php_debug
+    extra_hosts:
+      # Ensure that host.docker.internal is correctly defined on Linux
+      - host.docker.internal:host-gateway
+    ports:
+      - '8111:8111'
+    volumes:
+      - ./docker/php/conf.d/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./docker/php/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+      - ./:/srv/app:rw,cached
+      - ./var/log/xdebug:/tmp/xdebug:rw

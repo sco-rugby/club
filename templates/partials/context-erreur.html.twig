@@ -1,0 +1,14 @@
+{% import "macro/message.twig" as message %}
+<div class="row">
+    {% if app.session.application is not defined
+    and app.session.site is not defined
+    and app.session.environnement is not defined %}
+        {{ message.erreur('app.libelle'|trans, 'context.libelle'|trans, 'context.messages.aucun'|trans, 'parameter') }}
+    {% elseif app.session.application is not defined %}
+        {{ message.erreur('context.libelle'|trans, 'application.libelle'|trans, 'application.messages.aucune'|trans, 'parameter') }}
+    {% elseif app.session.site is not defined %}
+        {{ message.erreur('context.libelle'|trans, 'site.libelle'|trans, 'site.messages.aucun'|trans, 'parameter') }}
+    {% elseif app.session.environnement is not defined %}
+        {{ message.erreur('context.libelle'|trans, 'environnement.libelle'|trans, 'environnement.messages.aucun'|trans, 'parameter') }}
+    {% endif %}
+</div>

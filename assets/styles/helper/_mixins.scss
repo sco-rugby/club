@@ -1,0 +1,157 @@
+//Mixin
+@mixin card {
+    background-color: $white;
+    border: $card-border-width solid $card-border-color;
+    position: relative;
+    font-size: 1rem;
+}
+
+@mixin title{
+    font:{
+        weight: $headings-font-weight;
+    }
+    text-transform: uppercase;
+}
+
+@mixin excerpt{
+    color: $gray-600;
+    font-family: 'Open Sans Condensed', sans-serif;
+    letter-spacing: 0.2em
+}
+@mixin scrollbar{
+    &::-webkit-scrollbar {
+        width: $scrollbar-width;
+    }
+    &::-webkit-scrollbar-track {
+        border-radius: 2px
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 2px
+    }
+}
+@mixin before{
+    font: {
+        //family: $fontawesone-font-family;
+        //display: $fa-font-display;
+        weight: 900;
+    }
+    padding-right: $icon-spacing;
+}
+@mixin after{
+    font: {
+        //family: $fontawesone-font-family;
+        weight: 900;
+    }
+    padding-left: $icon-spacing * 2;
+}
+@mixin rotate {
+    transform: rotate(15deg);
+}
+@mixin custom-gradient-bg($color: $gray-300, $darker: darken($color, 20%)) {
+    background-image: linear-gradient(141deg, $color 0%, $darker 51%, $color 75%) !important;
+    color: $white !important;
+    //color-yiq($color);
+}
+@mixin bg-custom-gradient-variant($parent, $color) {
+    #{$parent} {
+        @include custom-gradient-bg($color);
+    }
+}
+@mixin header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    overflow: visible;
+    align-items: center;
+    svg, .icon{
+        height: 1rem;
+        width: 1rem;
+    }
+    .icon{
+        margin-right: $icon-spacing;
+    }
+}
+@mixin navbar-brand-sm {
+    .navbar-brand {
+        width: $sidebar-collapsed-width;
+        .brand-sm{
+            display: block;
+            margin: 0;
+        }
+        .brand-lg{
+            display: none;
+        }
+    }
+}
+@mixin navbar-brand-md {
+    .navbar-brand {
+        width: $sidebar-base-width;
+        .brand-sm{
+            display: block;
+        }
+        .brand-lg{
+            display: block;
+        }
+    }
+}
+@mixin navbar-brand-lg {
+    .navbar-brand {
+        width: 100%;
+        .brand-sm{
+            display: block;
+        }
+        .brand-lg{
+            display: block;
+        }
+    }
+}
+
+@mixin sidebar-item-sm{
+    position: absolute;
+    top: 0;
+    left: $sidebar-collapsed-width - 4px;
+    height: $sidebar-item-height;
+    width: $sidebar-item-width;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+    padding: $sidebar-item-padding-y 0;
+    padding-left: $sidebar-item-padding-x;
+    text-align: left;
+    line-height: 1.8;
+    border-top-right-radius: $dropdown-border-radius;
+    border-bottom-right-radius: $dropdown-border-radius;
+}
+@mixin sidebar-collapse-sm{
+    position: absolute;
+    top: $sidebar-item-height;
+    left: $sidebar-collapsed-width - 1px;
+    width: $sidebar-item-width;
+    display: block;
+    padding: .5rem 0;
+    border-bottom-right-radius: $dropdown-border-radius;
+    .nav-item{
+        display: block;
+    }
+}
+
+@mixin sidebar-item-bg-sm($color: $white, $dark-color: $gray-500, $light-color: $gray-300){
+    color: $color;
+    background: linear-gradient(88deg, $dark-color, $light-color);
+    -webkit-box-shadow: $box-shadow;
+    -moz-box-shadow: $box-shadow;
+    box-shadow: $box-shadow;
+}
+
+@mixin icon($size, $spacing: $icon-spacing){
+    width: $size;
+    height: $size;
+    font-size: $size;
+    margin-right: $spacing;
+    align-self: center;
+    @include media-breakpoint-down('md'){
+        margin-right: 0;
+    }
+}

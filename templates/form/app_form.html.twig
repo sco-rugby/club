@@ -1,0 +1,114 @@
+{% use "bootstrap_5_layout.html.twig" %}
+{%- block form_start -%}
+    {%- do form.setMethodRendered() -%}
+    {% set method = method|upper %}
+    {%- if method in ["GET", "POST"] -%}
+        {% set form_method = method %}
+    {%- else -%}
+        {% set form_method = "POST" %}
+    {%- endif -%}
+    <form id="{{ id }}"{% if name != '' %} name="{{ name }}"{% endif %} method="{{ form_method|lower }}"{% if action != '' %} action="{{ action }}"{% endif %}{{ block('attributes') }}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+        {%- if render_card is defined -%}
+            <div class="card shadow">
+                <header class="card-header">
+                    {%- if glyph is defined -%}
+                        {{ glyph|icon({'class': 'align-self-center'}) }}
+                    {%- endif -%}
+                    <span class="ms-2 fs-5 ">
+                        {%- if translation_domain is same as(false) -%}
+                            {%- if label_html is same as(false) -%}
+                                {{- label -}}
+                            {%- else -%}
+                                {{- label|raw -}}
+                            {%- endif -%}
+                        {%- else -%}
+                            {%- if label_html is same as(false) -%}
+                                {{- label|trans(label_translation_parameters, translation_domain) -}}
+                            {%- else -%}
+                                {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
+                            {%- endif -%}
+                        {%- endif -%}
+                    </span>
+                </header>
+                <div class="card-body">
+                {%- endif -%}
+            {%- endblock form_start -%}
+{%- block form_end -%}
+    {%- if render_card is defined -%}
+    </div>
+    {% import "macro/toolbar.twig" as toolbar %}
+    {%  set save = {'id': 'btn-save', 'action': 'submit', 'href': "#", 'label': 'save.button'|trans({}, 'action'), 'icon': 'bi-save'} %}
+    {%  set cancel = {'id': 'btn-cancel', 'action': 'reset', 'href': "#", 'label': 'cancel.button'|trans({}, 'action'), 'icon': 'bi-arrow-counterclockwise'} %}
+    <footer class="card-footer">
+        {{ toolbar.buttons([save, cancel]) }}
+    </footer>
+</div>
+{%- endif -%}
+{{ parent() }}
+{%- endblock form_end -%}
+{%- block form_row -%}
+    {%- set row_class = "form-floating "~row_class|default(row_attr.class|default('mb-3')|trim) -%}
+    {{ parent() }}
+{%- endblock form_row -%}
+{%- block choice_row -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    {% if expanded and multiple is same as (false)%}
+        <div {{ block('attributes') }}>
+            {{- form_label(form) -}}
+            {{- form_widget(form, widget_attr) -}}
+            {{- form_help(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock choice_row %}
+{%- block radio_widget -%}
+    <div class="form-check custom-checkbox">
+        {{- form_label(form, null, {'type': 'radio'}) -}}
+    </div>
+{%- endblock radio_widget %}
+{%- block checkbox_widget -%}
+    <div class="form-check custom-checkbox" data="checkbox">
+        {{- form_label(form, null, {'type': 'checkbox'}) -}}
+    </div>
+{%- endblock checkbox_widget %}
+{%- block checkbox_radio_label -%}
+    {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label')|trim}) -%}
+    {%- if required -%}
+        {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) -%}
+    {%- endif -%}
+    {%- if parent_label_class is defined -%}
+        {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|replace({'checkbox-inline': '', 'radio-inline': ''})|trim}) -%}
+    {%- endif -%}
+    {%- if label is not same as(false) and label is empty -%}
+        {%- if label_format is not empty -%}
+            {%- set label = label_format|replace({
+'%name%': name,
+'%id%': id,
+}) -%}
+        {%- else -%}
+            {%- set label = name|humanize -%}
+        {%- endif -%}
+    {%- endif -%}
+    <label{% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+        <input type="{{ type }}"{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+        {% set iconClass = "icon-tick bi" %}
+        <i class="{{ iconClass }}"></i>
+        {%- if translation_domain is same as(false) -%}
+            {%- if label_html is same as(false) -%}
+                {{- label -}}
+            {%- else -%}
+                {{- label|raw -}}
+            {%- endif -%}
+        {%- else -%}
+            {%- if label_html is same as(false) -%}
+                {{- label|trans(label_translation_parameters, translation_domain) -}}
+            {%- else -%}
+                {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
+            {%- endif -%}
+        {%- endif -%}
+    </label>
+{%- endblock checkbox_radio_label %}

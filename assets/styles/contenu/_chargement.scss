@@ -1,0 +1,16 @@
+#chargement{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($modal-backdrop-bg, $modal-backdrop-opacity);
+    z-index: $zindex-modal-backdrop;
+    pointer-events: none;
+    font-family: $font-family-monospace;
+    color: $white;
+}

@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  php:
+    volumes:
+      - ./:/srv/app:rw,cached
+      - ./docker/php/conf.d/symfony.dev.ini:/usr/local/etc/php/conf.d/symfony.ini
+    environment:
+      APP_ENV: dev
+
+  caddy:
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./public:/srv/app/public:ro
+
+###> doctrine/doctrine-bundle ###
+  database:
+    ports:
+      - "5432"
+###< doctrine/doctrine-bundle ###
+
+###> symfony/mailer ###
+  mailer:
+    image: schickling/mailcatcher
+    container_name: '${APP_NAME}-mailer-DEV'
+    ports: ["1025", "1080"]
+###< symfony/mailer ###
+  adminer:
+    image: adminer
+    container_name: '${APP_NAME}-adminer-DEV'
+    depends_on:
+      - db
+    restart: always
+    ports:
+      - 8000:8080

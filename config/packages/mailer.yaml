@@ -1,0 +1,3 @@
+framework:
+    mailer:
+        dsn: '%env(CLUB_MAILER_DSN)%'

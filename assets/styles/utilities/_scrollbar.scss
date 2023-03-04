@@ -1,0 +1,15 @@
+$scrollbar-width: 6px;
+$scrollbar-color: $gray-800;
+$scrollbar-bg: $gray-400;
+
+/* Barre de défilement */
+::-webkit-scrollbar {
+    width: $scrollbar-width;
+}
+::-webkit-scrollbar-track {
+    background-color: $scrollbar-bg;
+}
+::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-color;
+}
+

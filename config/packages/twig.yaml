@@ -1,0 +1,11 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        version: '%env(CLUB_VERSION)%'
+    form_themes: 
+        - 'form/app_form.html.twig'
+#        - 'bootstrap_5_layout.html.twig'
+
+when@test:
+    twig:
+        strict_variables: true

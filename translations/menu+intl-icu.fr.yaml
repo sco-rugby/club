@@ -1,0 +1,4 @@
+config:
+    libelle: Configuration
+import:
+  libelle: Importer

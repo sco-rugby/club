@@ -1,0 +1,25 @@
+// Global styles for both custom sidebar and topbar compoments
+/*.navbar-nav{
+    .nav-link{
+        border:{
+            style: solid;
+            width: 3px;
+            color: transparent;
+        }
+    }
+}*/
+.navbar-dark{
+    .nav-link{
+        &.active {
+            border-bottom: 3px solid $light;
+        }
+    }
+}
+.navbar-light{
+    border-bottom: 2px solid $red;
+    .nav-link{
+        &.active {
+            border-bottom: 3px solid $dark;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<!-- Begin Page Content -->
+{% block header %}{% endblock header %}
+<section role="main" class="container-fluid p-0">
+    <div class="row" role="main">
+        <div id="content" class="col content">
+            {% block content %}{% endblock content %}
+        </div>
+        {% if block("rightbar") is not empty %}
+            <aside class="col-auto">
+                {% block rightbar %}{% endblock rightbar %}
+            </aside>
+        {% endif %}
+    </div>
+</div>
+<!-- End Page Content -->
+{#% block footer %}{% endblock footer %#}
+{% block javascripts %}{% endblock javascripts %}

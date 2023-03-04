@@ -1,0 +1,91 @@
+{# footer #}
+{% macro footer(modules) %}
+    <!-- main footer -->
+    <footer class="footerbar fixed-bottom bg-white">
+        <nav class="navbar">
+            <ul class="navbar-nav navbar-module mx-auto">
+                {% for item in modules %}
+                    {{ _self.link(item) }}
+                {% endfor %}
+            </ul>
+        </nav>
+    </footer>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.footerbar .nav-link').ajaxLoad({
+                target: '#content',
+                after: [
+                    "$('.footerbar .nav-item').removeClass('active')",
+                    '$(event.currentTarget).parent().addClass("active")'
+                ]
+            });
+        });
+    </script>
+{% endmacro footer %}
+{# topbar #}
+{% macro topbar(modules) %}
+    <ul class="navbar-nav navbar-module flex-row flex-wrap py-md-0">
+        {% for item in modules %}
+            {{ _self.link(item) }}
+        {% endfor %}
+    </ul>
+{% endmacro topbar %}
+{# modulebar #}
+{% macro modulebar(modules) %}
+    <header class="navbar navbar-expand-md p-0 border-bottom d-flex flex-column">
+        <nav class="container-fluid flex-wrap flex-md-nowrap" aria-label="Main navigation">
+            <ul class="navbar-nav navbar-page flex-row flex-wrap py-md-0">
+                {% for item in modules %}
+                    {{ _self.link(item|merge({'class': 'py-3 border-bottom'})) }}
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+{% endmacro modulebar %}
+{% macro page_header(items) %}
+    <header class="navbar navbar-light border-bottom shadow-sm bg-white p-0">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <ul class="nav navbar-nav navbar-page flex-row flex-wrap col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    {% for item in items %}
+                        {{ _self.link(item|merge({'class': 'link-dark'})) }}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </header>
+{% endmacro page_header %}
+{# link #}
+{% macro link(item) %}
+    <li class="nav-item">
+        {% set attributes = {'id': item.path|replace({'/': '-'})} %}
+        {% if substr(attributes.id, 0, 1) == '-' %}
+            {% set attributes = {'id': attributes.id|substr(1)} %}
+        {% endif %}
+
+        {% set class = ['nav-link'] %}
+        {% if item.class is defined %}
+            {% set class = class|merge([item.class]) %}
+        {% endif %}
+        {% if item.actif is defined and item.actif == true %}
+            {% set class = class|merge(['active']) %}
+        {% endif %}
+
+        {% set attributes = attributes|merge({'class': class|join(' ')}) %}
+        {% if item.path is defined %}
+            {% set attributes = attributes|merge({'href': item.path}) %}
+        {% endif %}
+        {% if item.title is defined %}
+            {% set attributes = attributes|merge({'title': item.title}) %}
+        {% endif %}
+        {% if item.attr  is defined %}
+            {% set attributes = attributes|merge(item.attr) %}
+        {% endif %}
+
+        {% set linkContent = icon(item.icon, {'class': 'menu-icon'}) %}
+        {% if item.label is defined %}
+            {% set linkContent = linkContent ~ '<span class="nav-label ms-2">' ~ item.label ~ '</span>' %}
+        {% endif %}
+        {{ content('a', linkContent, attributes) }}
+    </li>
+{% endmacro link %}

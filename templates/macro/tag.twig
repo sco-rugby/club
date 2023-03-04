@@ -1,0 +1,206 @@
+{# Note #}
+{% macro note(min, max, rating, options = []) %}
+    {% set _class = ['fa-star', 'mx-1'] %}
+
+    {% if options.max is not defined %}
+        {% set options = options|merge({"max": {}}) %}
+    {% endif %}
+    {% if options.max.class is not defined %}
+        {% set options = options|merge({"max": {"class": []}}) %}
+    {% endif %}
+    {% set _classMax = options.max.class|merge(_class)|merge(['fas']) %}
+
+    {% if options.min is not defined %}
+        {% set options = options|merge({"min": {}}) %}
+    {% endif %}
+    {% if options.min.class is not defined %}
+        {% set options = options|merge({"min": {"class": []}}) %}
+    {% endif %}
+    {% set _classMin = options.min.class|merge(_class)|merge(['far']) %}
+    {% if min < 1 %}
+        {% set min = 1 %}
+    {% endif %}
+    {% if rating > max %}
+        {% set rating = max %}
+    {% endif %}
+    {% if rating >= min %}
+        {% for x in min..rating %}
+            {{ tag('i', {'class': _classMax}, false) }}
+        {% endfor %}
+    {% endif %}
+    {% set vide = max - rating %}
+    {% if vide > 0 %}
+        {% for y in 1..vide %}
+            {{ tag('i', {'class': _classMin}, false) }}
+        {% endfor %}
+    {% endif %}
+{% endmacro note %}
+{# Chip #}
+{% macro chip(label, attr = []) %}
+    {% set class = [] %}
+    {% if attr.class is defined %}
+        {% set class = attr.class %}
+    {% endif %}
+    {% set class = class|merge(['chip']) %}
+    {% set attr = attr|merge({'class': class}) %}
+
+    {% set contenu = "<span>#{label}</span>" %}
+    {% set contenu = contenu ~ '<span class="close px-1">×</span>' %}
+
+    {{ content('span', contenu, attr) }}
+{% endmacro chip %}
+{# Chips #}
+{% macro chips(id, liste) %}
+    <span id="{{ id }}" class="chips">
+        {% for element in liste %}
+            {% set label = element.label %}
+            {% set attr = element|filter((v, k) => k != 'label') %}
+            {{ _self.chip(label, attr) }}
+        {% endfor %}
+    </span>
+{% endmacro chips %}
+{# Search #}
+{% macro search(id, options = [], btn = false) %}
+    {% set class = [] %}
+    {% if options.class is defined %}
+        {% set class = options.class %}
+    {% endif %}
+    {% set class = class|merge(['search']) %}
+    {% if btn %}
+        {% set class = class|merge(['input-group']) %}
+    {% endif %}
+    {% set options = options|merge({'id': id ~ 'Input'}) %}
+    {% set options = options|merge({'type': 'search'}) %}
+    {% set options = options|merge({'class':'form-control'}) %}
+    {% set options = options|merge({'placeholder':'rechercher'|trans({}, 'action')}) %}
+    <div id="{{ id }}" class="{{ class|join(' ') }}">
+        {{ icon("bi-search", {'class': 'search-icon'}) }}
+        {{ tag('input', options, true) }}
+        {% if btn %}
+            <div class="input-group-append">
+                {{ content('button', 'effacer'|trans({}, 'action'),{'type': 'button', 'id': "#{id}Btn", 'class': 'btn btn-outline-primary'}) }}
+            </div>
+        {% endif %}
+    </div>
+{% endmacro search %}
+{# modal #}
+{% macro modal(id, options = [], buttons= [], icons = [], position = []) %}
+    {# positions #}
+    {% if position.header is not defined %}
+        {% set position = position|merge({'header': true}) %}
+    {% endif %}
+    {% if position.footer is not defined and buttons is not empty %}
+        {% set position = position|merge({'footer': true}) %}
+    {% elseif position.footer is not defined %}
+        {% set position = position|merge({'footer': false}) %}
+    {% endif %}
+    {# Toolbar #}
+    {#% if position.header == true %}
+        {% set closeIcon = { 'id': 'close#{id}Icon', 'icon': 'bi-x-lg', 'action':'close', 'data':{'bs-dismiss':'modal'}} %}
+        {% set icons = icons|merge([closeIcon]) %}
+    {% endif %#}
+    {% if position.footer == true %}
+        {% set closeBtn = { 'id': 'close#{id}Btn', 'icon': 'bi-x-lg', 'action':'close', 'class': ['btn-outline-primary'], 'label': 'fermer'|trans({}, 'action'), 'data':{'bs-dismiss':'modal'}} %}
+        {% if buttons is not empty %}
+            {% set buttons = [closeBtn]|merge(buttons) %}
+        {% else %} 
+            {% set saveBtn = { 'id': 'save#{id}Btn', 'action':'save', 'class': ['btn-outline-primary'], 'label': 'enregistrer'|trans({}, 'action')} %}
+            {% set buttons = [closeBtn, saveBtn] %}
+        {% endif %}
+    {% endif %}
+    {{ _self.modal_start(id, options) }}
+    {% if position.header == true %}
+        {{ _self.modal_header('', icons) }}
+    {% endif %}
+    {{ _self.modal_content }}
+    {% if position.footer == true %}
+        {{ _self.modal_footer(buttons) }}
+    {% endif %}
+    {{ _self.modal_end }}
+{% endmacro modal %}
+{% macro modal_wrapper(id, options = []) %}
+    {{ _self.modal_start(id, options)|raw }}
+    {{ _self.modal_end()|raw }}
+{% endmacro modal_wrapper %}
+{% macro modal_start(id, options = []) %}
+    {% set class = ['modal-dialog'] %}
+    {# size #}
+    {% if options.size is defined %}
+        {% set class = class|merge(["modal-" ~ options.size]) %}
+    {% endif %}
+    {# class #}
+    {% if options.class is defined %}
+        {% set class = class|merge(options.class) %}
+    {% endif %}
+    {% set wrapperHtml = '<div id="' ~ id ~ '" class="modal fade" tabindex="-1">' %}
+    {% set modalHtml = '<div ' ~ {'class': class}|attributes ~ '>' %}
+    {% set contentHtml = '<div class="modal-content">' %}
+    {{ "#{wrapperHtml} #{modalHtml} #{contentHtml}"|raw }}
+{% endmacro modal_start %}
+{% macro modal_header(titre = '', actions = []) %}
+    {% from "macro/toolbar.twig" import icons %}
+    <header class="modal-header">
+        <h5 class="modal-title">{{ titre }}</h5>
+        {{ icons(actions, {'class': ['ml-auto']}) }}
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </header>
+{% endmacro modal_header %}
+{% macro modal_content( content = '') %}
+    {{ _self.modal_content_start() }}
+    {{ content|raw }}
+    {{ _self.modal_content_end() }}
+{% endmacro modal_content %}
+{% macro modal_content_start() %}
+    <div class="modal-body" style="padding-top: 0">
+    {% endmacro modal_content_start %}
+    {% macro modal_content_end() %}
+    </div>
+{% endmacro modal_content_end %}
+{% macro modal_footer(actions = []) %}
+    {% from "macro/toolbar.twig" import buttons %}
+    <div class="modal-footer">
+        {{ buttons(actions) }}
+    </div>
+{% endmacro modal_footer %}
+{% macro modal_end() %}
+    {{ '</div></div></div>'|raw }}
+{% endmacro modal_end %}
+{# offcanvas #}
+{% macro offcanvas(id, titre, content, actions= [], options = [], position='end') %}
+    {% set attr = {'id': id, 'tabindex': "-1"} %}
+    {% set class = [] %}
+    {% if options.attr.class is defined %}
+        {% set class = options.attr.class|split(' ') %}
+    {% endif %}
+    {% set class = ['offcanvas', 'offcanvas-'~position]|merge(class) %}
+    {% set attr = attr|merge({"class": class|join(' ')}) %}
+    {% if options.scroll is defined %}
+        {% set attr = attr|merge({"data-bs-scroll": options.scroll}) %}
+    {% endif %}
+    {% if options.backdrop is defined %}
+        {% set attr = attr|merge({"data-bs-backdrop": options.backdrop}) %}
+    {% endif %}
+    {{ content( 'div', _self.offcanvas_header(titre, actions) ~ _self.offcanvas_content(content), attr) }}
+{% endmacro offcanvas %}
+{% macro offcanvas_header(titre = '', actions = []) %}
+    {% from "macro/toolbar.twig" import icons %}
+    <header class="offcanvas-header">
+        <h5 class="offcanvas-title">{{ titre }}</h5>
+        {{ icons(actions, {'class': ['ml-auto']}) }}
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </header>
+{% endmacro offcanvas_header %}
+{% macro offcanvas_content( content = '') %}
+    <div class="offcanvas-body"> {{ content|raw }}</div>
+{% endmacro offcanvas_content %}
+
+{# context_update #}
+{% macro context_update( module, path_mame = null, target = null) %}
+    {% if path_mame is empty %}
+        {% set path_mame = "#{module}_list" %}
+    {% endif %}
+    {% if target is empty %}
+        {% set target = "#{module}-list" %}
+    {% endif %}
+    <input type="hidden" id="context-update" value="{{ path(path_mame) }}" data-target="{{ target }}" />
+{% endmacro context_update %}

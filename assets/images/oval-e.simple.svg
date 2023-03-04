@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg height="80" width="260"  viewBox="0 0 68.791664 21.166666">
+    <ellipse
+       cx="-53.115852"
+       cy="53.180809"
+       rx="8.5086632"
+       ry="4.6005578"
+       transform="matrix(0.64483653,-0.76432051,0.84020827,0.54226384,0,0)"
+       style="display:inline;fill:none;stroke:#e21c14;stroke-width:2.03022313;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="ellipse" />
+    <path
+       id="path844"
+       d="m 8.4246268,64.655209 c 2.3041442,8.470641 9.9370842,6.438614 12.4067652,3.62021"
+       style="display:inline;fill:none;stroke:#e21c14;stroke-width:1.79191315;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <text
+       transform="matrix(1.0908015,0,0,0.91675709,0,-1.3081717e-6)"
+       id="text848"
+       y="81.821182"
+       x="20.181082"
+       style="display:inline;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-size:17.12676811px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial Bold Condensed';letter-spacing:0.35539612px;word-spacing:0px;fill:#002040;fill-opacity:1;stroke:none;stroke-width:0.42816922"
+       xml:space="preserve"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-family:Arial;-inkscape-font-specification:'Arial Bold Condensed';letter-spacing:0.35539612px;word-spacing:0px;fill:#002040;fill-opacity:1;stroke-width:0.42816922"
+         y="81.821182"
+         x="20.181082"
+         id="tspan846">VAL-e</tspan>
+	</text>
+</svg>

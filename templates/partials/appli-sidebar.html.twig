@@ -1,0 +1,14 @@
+{% import "macro/navbar.twig" as navbar %}
+<aside id="app-bar" class="col-auto h-100 bg-white border-right">
+    <div class="d-flex flex-column flex-shrink-0 h-100" style="width: 3rem;">
+        <a href="/" class="d-block text-decoration-none text-center py-3" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
+            <img src="{{ asset('build/images/sco-rugby.svg') }}" style="height: 2rem;"/> 
+            <span class="visually-hidden">Icon-only</span>
+        </a>
+        {% set attr = {'aria-current':'page', 'data-bs-toggle': 'tooltip', 'data-bs-placement': 'right'} %}
+        {% set class = 'py-3 border-bottom' %}
+        {% set home = {'path': '#', 'icon':'bi-house', 'title': 'accueil.libelle'|trans({}, 'menu'), 'actif': true, 'class': class, 'attr': attr} %}
+        {% set config = {'path': path('config_module'), 'icon':'bi-tools', 'title': 'config.libelle'|trans({}, 'menu'), 'class': class, 'attr': attr} %}
+        {% set dashboard = {'path': path('dashboard_module'), 'icon':'bi-speedometer2', 'title': 'accueil.libelle'|trans({}, 'menu'), 'class': class, 'attr': attr} %}
+        {{ navbar.modulebar([home, dashboard, config]) }}
+</aside>

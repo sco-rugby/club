@@ -1,0 +1,41 @@
+{% import "macro/stepper.twig" as stepper %}
+<!-- En-tête page -->
+{% set header = {'label':'import.header.libelle'|trans, 'desc': 'import.header.description'|trans} %}
+{{ include('partials/page-header.twig') }}
+{% set rapport = enum('App\\Model\\RapportOvale') %}
+{% set rapport001 = rapport.OVALE2001 %}
+{% set rapport004 = rapport.OVALE2004 %}
+{% set rapport050 = rapport.OVALE2050 %}
+<div class="container">
+    {{ form_start(form, {'attr': {'id': 'import-form', 'target': '#resultat'}}) }}
+    <div class="row">
+        <div class="col-auto me-2">
+            {{ form_widget(form.rapport) }}
+            {{ form_help(form.rapport) }}
+        </div>
+        <div class="col-4 form-text">
+            <div id="rapport-ovale2001" class="rapport-desc" style="display: none">
+                <p>{{ rapport001.getDescription|raw }}</p>
+            </div>
+            <div id="rapport-ovale2004" class="rapport-desc" style="display: none">
+                <p>{{ rapport004.getDescription|raw }}</p>
+            </div>
+            <div id="rapport-ovale2050" class="rapport-desc" style="display: none">
+                <p>{{ rapport050.getDescription|raw }}</p>
+            </div>
+        </div>
+        <div class="col-4">{{ form_row(form.fichier) }}</div>
+    </div>
+    <div class="row py-4 justify-content-center border-bottom">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary btn-lg px-4">{{ 'import.submit'|trans }}</a>
+        </div>
+    </div>
+    <div class="row mt-4 justify-content-center">
+        <div class="col-4"> resultat
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+</div>
+{{ encore_entry_script_tags('import') }}

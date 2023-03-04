@@ -1,0 +1,36 @@
+.header-tools {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    //margin: 5px;
+    margin: 0;
+    margin-left: auto !important;
+    margin-right: -10px;
+    padding: 0;
+
+    & > .header-tool {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        cursor: pointer;
+        color: $gray-700 !important;
+        fill: $gray-700 !important;
+        &:not(:first-child):last-child{
+            border-left: $border-width solid $border-color !important;
+        }
+        &::before{
+            @include before;
+            font-size: 1.2rem !important;
+            line-height: 1;
+        }
+        &.close::before{
+            content: map-get($bootstrap-icons-map, "x");
+        }
+        &.resize::before{
+            content: map-get($bootstrap-icons-map, "caret-up");
+        }
+    }
+}

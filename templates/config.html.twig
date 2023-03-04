@@ -1,0 +1,31 @@
+{% extends 'content.layout.twig' %}
+{% import "macro/navbar.twig" as navbar %}
+{% set import = {'path': path('import_index'), 'icon':'bi-box-arrow-in-right', 'label': 'import.libelle'|trans({}, 'menu'), 'desc': 'import.description'|trans, 'actif': true} %}
+{% block header %}
+    {{ navbar.modulebar([import]) }}
+{% endblock header %}
+{% block content %}
+    <div class="container pt-4">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">{{ 'config.libelle'|trans({}, 'menu') }}</h1>
+                <p class="col-md-8 fs-4">{{ 'config.description'|trans|raw }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-5">
+            {% for item in [import] %}
+                <div class="col d-flex align-items-start">
+                    {{ icon(item.icon, {'class': ['flex-shrink-0', 'me-3', 'fs-3']}) }}
+                    <div>
+                        <h3 class="fw-bold mb-0 fs-4">{{ item.label }}</h3>
+                        <p>{{ item.desc|raw }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {#{ render(path('import_index')) }#}
+    {{ encore_entry_script_tags('menu') }}
+{% endblock content %}

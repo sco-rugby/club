@@ -1,0 +1,59 @@
+{# group #}
+{% macro groupe(id, liste, select_path = null, actions = [], options = []) %}
+    {% from "macro/tag.twig" import search %}
+    {% if options.liste is not defined %}
+        {% set options = options|merge({'liste': 'liste-' ~ id}) %}
+    {% endif %}
+    {% if options.target is not defined %}
+        {% set options = options|merge({'target': 'detail'}) %}
+    {% endif %}
+    {% if options.search is not defined %}
+        {% set options = options|merge({'search': true}) %}
+    {% endif %}
+    <section id="{{ id }}" class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white liste">
+        {% if options.search == true %}
+            <div class="mb-2">
+                {{ search('search-' ~ options.liste) }}
+            </div>
+        {% endif %}
+        <ul id="{{ options.liste }} "class="list-group list-group-flush border-bottom scrollarea green">
+            {% set attr = {'class': ['text-truncate', 'mb-1'], 'data-target': '#'~options.target, ' data-action': "select"}%}
+            {% for item in liste %}
+                <li id="{{ item.id }}" class="list-group-item list-group-item-action flex-column align-items-start sticky-top">
+                    <div class="d-flex w-100 justify-content-between">
+                        {% set label = '<span class="search-content label">' ~ item.label ~ '</span>' %}
+                        {% set attr = attr|merge({'href': path(select_path,{'id': item.id})}) %}
+                        {{ content('a', label, attr) }}
+                        {% if actions is not empty %}
+                            <ul class="list-inline list-action align-self-center">
+                                {% for action, action_options in actions %}
+                                    <li class="list-inline-item list-action-item align-middle">
+                                        {{ _self.action_link(action, action_options) }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+{% endmacro groupe %}
+{% macro action_link(action, options) %}
+    {% if options.attr is not defined %}
+        {% set options=options|merge({'attr': []}) %}
+    {% endif %}
+    {% if action == 'delete' %}
+        {% set options = options|merge({'icon': 'bi-trash'})%}
+        {% set options = options|merge({'attr': options.attr|merge({'data-action': 'remove', 'data-bs-toggle':'tooltip'})}) %}
+        {% set title = 'supprimer'|trans({}, 'action') %}
+    {% endif %}
+    {% set class = ['list-action-link'] %}
+    {% if options.class is defined  %}
+        {% set class = class|merge(options.class) %}
+    {% endif %}
+    {% set options = options|merge({'attr': {'href': options.path}})%}
+    {% set options = options|merge({'attr':{'class': class}})%}
+    {% set iconAction = icon(options.icon) %}
+    {{ content('a', iconAction, options.attr) }}
+{% endmacro action_link %}

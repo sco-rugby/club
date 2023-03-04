@@ -1,0 +1,243 @@
+{% use "form/app_form.html.twig" %}
+
+{# form_row #}
+{%- block form_row -%}
+    <div{% with {attr: row_attr} %}{{ block('attributes') }}{% endwith %}>
+        {{- form_widget(form) -}}
+        {{- form_help(form) -}}
+    </div>
+{%- endblock form_row -%}
+{# form_widget #}
+{%- block form_widget -%}
+    {% if form is rootform %}
+        {% if layout == 'accordion' %}
+            {{- block('filtre_accordion') -}}
+        {% endif %}
+    {% else %}
+        {% if layout == 'accordion' %}
+            {{- block('accordion_item') -}}
+        {% elseif layout == 'default' %}
+            {{- block('filter_default') -}}
+        {% elseif layout == 'inline' %}
+            {{- block('filter_inline') -}}
+        {% else %}
+            {{ parent() }}
+        {% endif %}
+    {% endif %}
+{%- endblock form_widget -%}
+{# form_label #}
+{%- block form_label -%}
+    {% if form is rootform and layout == 'accordion' %}
+        {{- block('accordion_header') -}}
+    {% elseif layout is defined %}
+        {% if layout == 'inline' %}
+            {{- block('filter_inline') -}}
+        {% endif %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock form_label -%}
+
+{# choice_widget #}
+{%- block choice_widget -%}
+    {% if layout is defined %}
+        {% if layout == 'accordion' %}
+            {{- block('accordion_item') -}}
+        {% elseif layout == 'inline' %}
+            {{- block('filter_inline') -}}
+        {% elseif layout == 'default' %}
+            {{- block('filter_default') -}}
+        {% endif %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock choice_widget -%}
+{%- block choice_label -%}
+    {% if layout is defined %}
+        {% if layout == 'accordion' %}
+            {{- block('accordion_header') -}}
+        {% endif %}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock choice_label -%}
+{% block radio_widget -%}
+    {% if layout == 'inline' %}
+        {% set type = 'radio' %}
+        {{- block('filter_inline_widget') -}}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock radio_widget %}
+{% block checkbox_widget -%}
+    {% if layout == 'inline' %}
+        {% set type = 'checkbox' %}
+        {{- block('filter_inline_widget') -}}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock checkbox_widget %}
+{%- block checkbox_radio_label -%}
+    {% if layout == 'inline' %}
+        {{- block('filter_inline_label') -}}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{%- endblock checkbox_radio_label -%}
+
+{# filtre_accordion #}
+{%- block filtre_accordion  %}
+    {% set class = ['accordion','accordion-flush', 'filter']|merge(row_attr.class|default([])) %}
+    <div id="{{ id }}Accordion"{% with { attr: {'class': class|join(' ')} } %}{{ block('attributes') }}{% endwith %} >
+        {% for child in form|filter(child => not child.rendered) %}
+            <div class="accordion-item">
+                {{ form_label(child,null,{'layout': 'accordion', 'label_attr':{'class': 'search-content'}}) }}
+                {{ form_widget(child,{'layout': 'accordion'}) }}
+            </div>
+        {% endfor %}
+    </div>
+{%- endblock filtre_accordion  %}
+{# accordion_header #}
+{%- block accordion_header -%}
+    {#% set label_attr = {'class': ['accordion-header', 'd-flex','align-items-center']|merge(label_attr.class|default([]))|join(' ')} %#}
+    {% set collapsed=true %}
+    <div id="{{ id }}_heading"{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %} >
+        <button class="accordion-button collapsed p-0" type="button" data-bs-toggle="collapse" data-bs-target="#{{ id }}" aria-expanded="{% if collapsed == true %}false{% else %}true{% endif %}" aria-controls="{{ id }}">
+            {{ label|trans }}
+        </button>
+    </div>
+{%- endblock accordion_header -%}
+{# accordion_item #}
+{%- block accordion_item -%}
+    {% set targetId= form.parent.vars.id ~ 'Accordion' %}
+    <div id="{{ id }}" class="accordion-collapse collapse" data-bs-parent="#{{ targetId }}">
+        <div class="accordion-body">
+            {% with { row_attr: {'id': id ~ 'Search', 'class': 'search mb-3'}} %}{{ block('search_widget') }}{% endwith %}
+            <div class="scrollarea mt-2">
+                {%- for child in form %}
+                    {{- form_widget(child, {'layout': 'accordion', translation_domain: choice_translation_domain}) -}}
+                {% endfor -%}
+            </div>
+        </div>
+    </div>
+{%- endblock accordion_item -%}
+
+{# filtre_default #}
+{%- block filter_default -%}
+    {{- block('filter_default_group_label') -}}
+    <div class="filter-body">
+        {#% with { row_attr: {'id': id ~ 'Search', 'class': 'search mb-3', 'value': null}} %}{{ block('search_widget') }}{% endwith %#}
+        <div class="scrollarea">
+            {%- for child in form %}
+                {{- form_widget(child, {'layout': 'default', 'translation_domain': choice_translation_domain}) -}}
+            {% endfor -%}
+        </div>
+    </div>
+{%- endblock filter_default -%}
+{%- block filter_default_group_label -%}
+    {%- if label is not same as(false) and label is empty -%}
+        {%- if label_format is not empty -%}
+            {%- set label = label_format|replace({'%name%': name, '%id%': id}) -%}
+        {%- else -%}
+            {%- set label = name|humanize -%}
+        {%- endif -%}
+    {%- endif -%}
+    <div class="filter-header">
+        {%- if translation_domain is same as(false) -%}
+            {%- if label_html is same as(false) -%}
+                {{- label -}}
+            {%- else -%}
+                {{- label|raw -}}
+            {%- endif -%}
+        {%- else -%}
+            {%- if label_html is same as(false) -%}
+                {{- label|trans(label_translation_parameters, translation_domain) -}}
+            {%- else -%}
+                {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
+            {%- endif -%}
+        {%- endif -%}
+    </div>
+{%- endblock filter_default_group_label -%}
+
+{# filtre_inline #}
+{%- block filter_inline -%}
+    <div id="{{ id }}" class="btn-group filter-group" role="filter">
+        {{- block('filter_inline_group_label') -}}
+        {%- for child in form %}
+            {{- form_widget(child, {'layout': 'inline'}) -}}
+            {{- form_label(child, null, {'layout': 'inline', 'translation_domain': choice_translation_domain}) -}}
+        {% endfor -%}
+    </div>
+{%- endblock filter_inline -%}
+{%- block filter_inline_group_label -%}
+    {%- if label is not same as(false) and label is empty -%}
+        {%- if label_format is not empty -%}
+            {%- set label = label_format|replace({'%name%': name, '%id%': id}) -%}
+        {%- else -%}
+            {%- set label = name|humanize -%}
+        {%- endif -%}
+    {%- endif -%}
+    <div class="input-group-prepend">
+        <span class="input-group-text">
+            {%- if translation_domain is same as(false) -%}
+                {%- if label_html is same as(false) -%}
+                    {{- label -}}
+                {%- else -%}
+                    {{- label|raw -}}
+                {%- endif -%}
+            {%- else -%}
+                {%- if label_html is same as(false) -%}
+                    {{- label|trans(label_translation_parameters, translation_domain) -}}
+                {%- else -%}
+                    {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
+                {%- endif -%}
+            {%- endif -%}
+        </span>
+    </div>
+{%- endblock filter_inline_group_label %}
+{%- block filter_inline_widget -%}
+    {% set attr = attr|merge({'class': 'btn-check '}) %}
+    {% set attr = attr|merge({'value': value|default('*')}) %}
+    {% set attr = attr|merge({'data-filter': value|default('*')}) %}
+    {% set attr = attr|merge({'data-action': 'filter'}) %}
+    <input  type="{{ type }}" {{ block('widget_attributes') }}{% if checked %} checked{% endif %} />
+{%- endblock filter_inline_widget -%}
+{%- block filter_inline_label -%}
+    {% set label_attr = label_attr|merge({'for': id}) %}
+    {% set class = 'btn '~attr.class|default('') %}
+    {% set label_attr = label_attr|merge({'class': class}) %}
+    <label {% if label_attr %}{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}{% endif %}>
+        {%- if translation_domain is same as(false) -%}
+            {%- if label_html is same as(false) -%}
+                {{- label -}}
+            {%- else -%}
+                {{- label|raw -}}
+            {%- endif -%}
+        {%- else -%}
+            {%- if label_html is same as(false) -%}
+                {{- label|trans(label_translation_parameters, translation_domain) -}}
+            {%- else -%}
+                {{- label|trans(label_translation_parameters, translation_domain)|raw -}}
+            {%- endif -%}
+        {%- endif -%}
+    </label>
+{%- endblock filter_inline_label -%}
+
+{# Search #}
+{%- block search_widget -%}
+    {% set class = 'search' %}
+    {% if attr.class is defined %}
+        {% set class = attr.class~' '~class %}
+    {% endif %}
+    {% set required = false %}
+    {% if attr.placeholder is not defined %}
+        {% set attr = attr|merge({'placeholder':'rechercher'|trans({}, 'action')}) %}
+    {% endif %}
+    <div {% with { attr: attr|merge({'class': class}) } %}{{- block('widget_container_attributes') -}}{% endwith %}>
+        {{ icon("bi-search", {'class': 'search-icon'}) }}
+        {%- set type = type|default('search') -%}
+        {%- set value = null -%}
+        {{ block('form_widget_simple') }}
+    </div>
+{%- endblock search_widget -%}
+

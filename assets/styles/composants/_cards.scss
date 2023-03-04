@@ -1,0 +1,442 @@
+// Custom Card Styling
+.card {
+    font-size: 1rem;
+    -webkit-box-shadow: $card-box-shadow;
+    box-shadow: $card-box-shadow;
+
+    input, textarea{
+        width: 100%;
+    }
+
+    /* parts of cards */
+    .card-header {
+        @include header;
+
+        // Collapsable Card Styling
+        [data-bs-toggle="collapse"] {
+            text-decoration: none;
+            position: relative;
+            padding: 0.75rem 3.25rem 0.75rem 1.25rem;
+            &::after {
+                position: absolute;
+                right: 0;
+                top: 0;
+                padding-right: 1.725rem;
+                line-height: 51px;
+                font-weight: 900;
+                content: '\f107';
+                font-family: 'Font Awesome 5 Free';
+                color: $gray-400;
+            }
+            &.collapsed {
+                border-radius: $card-border-radius;
+                &::after {
+                    content: '\f105';
+                }
+            }
+        }
+        .dropdown {
+            line-height: 1;
+            .dropdown-menu {
+                .dropdown-item{
+                    font:{
+                        family: initial;
+                        size: .7rem;
+                    }
+                    line-height: 1em;
+                }
+            }
+        }
+        .clip-header {
+           margin-left: auto;
+            i, svg {
+                display: inline-block;
+                -webkit-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+            svg{
+                height: 14px;
+                width: 14px;
+            }
+        }
+    }
+    .card-body {
+        &.full-width{
+            padding: 0;
+        }
+        & > div{
+            padding: 0;
+            margin: 0;
+        }
+    }
+    .card-footer{
+        font-size: .7em;
+        background: $light;
+        padding: 2px 5px;
+        list-style: none;
+        color: $gray-600;
+        *{
+            margin: 0;
+        }
+        svg, .icon{
+            height: 0.7rem;
+            width: 0.7rem;
+            font-size: 0.7rem;
+        }
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            color: $gray-600;
+            font-family: 'Open Sans Condensed', sans-serif;
+            letter-spacing: 0.2em;
+            li + li:before {
+                content: "|";
+                padding: 0 5px;
+            }
+        }
+    }
+    .card-section{
+        position: relative;
+        padding: 5px;
+        color: $light;
+        & > header{
+            position: absolute;
+            right: 0;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            padding: 2px 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        & > footer{
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            border-top: none;
+            font-size: .7em;
+            padding: 2px 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            *{
+                margin: 0;
+            }
+            svg, .icon{
+                height: 0.7rem;
+                width: 0.7rem;
+            }
+        }
+    }
+
+    /* style de carte */
+    &.collapsed {
+        .card-header {
+            padding: calc($card-spacer-y/2) calc($card-spacer-x/2);
+            position: relative;
+            border: none;
+            .card-tools {
+                a {
+                    &.resize::before{
+                        content: map-get($bootstrap-icons-map, "arrows-move");
+                    }
+                }
+            }
+        }
+        .card-body {
+            display: none;
+        }
+        .card-footer {
+            display: none;
+        }
+    }
+    &.light{
+        .card-header{
+            padding-bottom: 0;
+            padding-top: 0;
+            border: none;
+            font:{
+                weight: initial;
+                family: $font-family-monospace;
+            }
+            background-color: $card-bg;
+        }
+        .card-body:not(:first-child) {
+            padding-top: 0;
+        }
+        .card-footer{
+            border: none;
+            background-color: $card-bg;
+            position: absolute;
+            bottom:0;
+            width: 100%
+        }
+    }
+    &.info-box {
+        flex-direction: row;
+        background: $white;
+        .card-body{
+            padding: 5px 10px;
+            //overflow-y: auto;
+            .list-group-item{
+                padding: 0;
+            }
+        }
+        .card-text{
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+        .card-icon{
+            /*position: relative;*/
+            display: block;
+            /*float: left;*/
+            padding: 15px;
+            border-top-left-radius: $card-border-radius;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: $card-border-radius;
+            text-align: center;
+            color: $white;
+            background: rgba(0,0,0,0.2);
+            svg, i{
+                height: 60px;
+                width: 60px;
+            }
+        }
+        @include media-breakpoint-down('md') {
+            max-width: 100%;
+        }
+    }
+    &.counter-box {
+        .card-counter {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: $dark;
+            line-height: 1.2rem
+        }
+        .card-icon {
+            color: $light;
+        }
+        @each $name, $color in $colors {
+            &.bg-#{$name}{
+                .card-body{
+                    [class^="card-"]{
+                        color: $white !important;
+                    }
+                }
+            }
+        }
+    }
+    &.stats{
+        .card-header{
+            @include title;
+            background-color: $card-bg;
+            padding: $card-spacer-x;
+            padding-bottom: 0;
+            border: none;
+        }
+        .card-body{
+            .card-header ~ & {
+                padding-top: 0;
+            }
+            .card-title{
+                float: left !important;
+            }
+            .card-icon{
+                float: right !important;
+            }
+        }
+    }
+    /* Elements de la carte */
+    .card-body-icon {
+        position: absolute;
+        width: 100%;
+        min-height: 100%;
+        top: 0;
+        left: 0;
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+        will-change: transform,opacity,filter;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        background-repeat: no-repeat;
+        z-index: 0;
+    }
+    .card-img-overlay{
+        position: absolute;
+        top: initial;
+        text-align: center;
+        z-index: 10;
+        padding: 20px 0 !important;
+        .card-title, {
+            @include title;
+            color: $white;
+            text-shadow: 2px 2px $dark;
+            letter-spacing:5px;
+        }
+        .card-subtitle{
+            @include excerpt;
+            letter-spacing: 0.55em;
+            color: $white;
+        }
+    }
+    .card-img{
+        overflow: hidden;
+        &:hover img {
+            -webkit-transform: scale(1.1);
+            -moz-transform: scale(1.1);
+            -o-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+            -webkit-transition: all 0.5s ease-out;
+            -moz-transition: all 0.5s ease-out;
+            -ms-transition: all 0.5s ease-out;
+            -o-transition: all 0.5s ease-out;
+            transition: all 0.5 ease-out;
+        }
+    }
+    .card-title{
+        @include title;
+    }
+    .card-icon{
+        //font-size: 4rem;
+    }
+    .card-subtitle{
+        @include excerpt;
+    }
+    .bg-card {
+        background-size: contain;
+        background-position: right;
+        border-top-right-radius: 0.375rem;
+        border-bottom-right-radius: 0.375rem;
+    }
+
+    .card-hover:hover {
+        box-shadow: 2px 2px 15px rgba(#000, 0.3);
+    }
+    // background colors
+    &.bg-transparent .card-body {
+        background-color: transparent;
+    }
+    // border colors
+    $border-pos: 'top', 'left', 'bottom', 'right';
+    $theme-colors: map-merge(("primary": $primary, "secondary": $secondary), $colors);
+    @each $name, $color in $theme-colors {
+        @each $pos in $border-pos {
+            &.border-#{$pos} .border-#{$name} {
+                .card-section {
+                    border-#{$pos}-color: $color !important;
+                }
+            }
+        }
+
+        .bg-#{$name}-gradient {
+            @include gradient-directional($color, darken($color, 30%), -45deg);
+            background-position: center;
+        }
+
+
+        &.bg-#{$name}{
+            .card-body {
+                background-color: rgba(red($color), green($color), blue($color), .7) !important;
+                color: $white !important;
+                border: none;
+            }
+        }
+        &.#{$name}{
+            & > .card-header {
+                color: $color;
+            }
+            .card-hover:hover {
+                box-shadow: 2px 2px 15px rgba($color, 0.3);
+            }
+            hr {
+                color: $color;
+            }
+        }
+    }
+}
+
+.card-recto-verso {
+    .frontside {
+        display: initial;
+    }
+    .backside{
+        display: none;
+    }
+    &.flip{
+        .frontside {
+            display: none;
+        }
+        .backside {
+            display: inherit;
+        }
+    }
+}
+.card-flip {
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -moz-transition: 1s;
+    -moz-transform: perspective(1000px);
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+    height: 310px;
+
+    .frontside, .backside {
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        -ms-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transition: 1s;
+        -webkit-transform-style: preserve-3d;
+        -moz-transition: 1s;
+        -moz-transform-style: preserve-3d;
+        -o-transition: 1s;
+        -o-transform-style: preserve-3d;
+        -ms-transition: 1s;
+        -ms-transform-style: preserve-3d;
+        transition: 1s;
+        transform-style: preserve-3d;
+        height: 100%;
+        width: 100%;
+    }
+    .frontside {
+        position: relative;
+        -webkit-transform: rotateY(0deg);
+        -ms-transform: rotateY(0deg);
+        z-index: 2;
+    }
+    .backside{
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-transform: rotateY(-180deg);
+        -moz-transform: rotateY(-180deg);
+        -o-transform: rotateY(-180deg);
+        -ms-transform: rotateY(-180deg);
+        transform: rotateY(-180deg);
+        //-webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        //-moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+        //box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    }
+    .flip-image:hover, &.flip-hover{
+        .frontside {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            -o-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+        }
+        .backside {
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            -o-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+            transform: rotateY(0deg);
+        }
+    }
+}

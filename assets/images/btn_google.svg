@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg3853"
+   sodipodi:docname="btn_google.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata3857">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>btn_google_light_normal_ios</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview3855"
+     showgrid="false"
+     inkscape:zoom="0.45347065"
+     inkscape:cx="-396.09542"
+     inkscape:cy="-162.05512"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer5" />
+  <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+  <title
+     id="title3801">btn_google_light_normal_ios</title>
+  <desc
+     id="desc3803">Created with Sketch.</desc>
+  <defs
+     id="defs3827">
+    <rect
+       id="path-2"
+       x="0"
+       y="0"
+       width="40"
+       height="40"
+       rx="2" />
+    <filter
+       x="-0.5"
+       y="-0.5"
+       width="2"
+       height="2"
+       filterUnits="objectBoundingBox"
+       id="filter-1-9">
+      <feOffset
+         dx="0"
+         dy="1"
+         in="SourceAlpha"
+         result="shadowOffsetOuter1"
+         id="feOffset3805-0" />
+      <feGaussianBlur
+         stdDeviation="0.5"
+         in="shadowOffsetOuter1"
+         result="shadowBlurOuter1"
+         id="feGaussianBlur3807-0" />
+      <feColorMatrix
+         values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.168 0"
+         in="shadowBlurOuter1"
+         type="matrix"
+         result="shadowMatrixOuter1"
+         id="feColorMatrix3809-8" />
+      <feOffset
+         dx="0"
+         dy="0"
+         in="SourceAlpha"
+         result="shadowOffsetOuter2"
+         id="feOffset3811-3" />
+      <feGaussianBlur
+         stdDeviation="0.5"
+         in="shadowOffsetOuter2"
+         result="shadowBlurOuter2"
+         id="feGaussianBlur3813-0" />
+      <feColorMatrix
+         values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.084 0"
+         in="shadowBlurOuter2"
+         type="matrix"
+         result="shadowMatrixOuter2"
+         id="feColorMatrix3815-6" />
+      <feMerge
+         id="feMerge3823-4">
+        <feMergeNode
+           in="shadowMatrixOuter1"
+           id="feMergeNode3817-7" />
+        <feMergeNode
+           in="shadowMatrixOuter2"
+           id="feMergeNode3819-4" />
+        <feMergeNode
+           in="SourceGraphic"
+           id="feMergeNode3821-1" />
+      </feMerge>
+    </filter>
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Countour"
+     transform="translate(0,466)"
+     style="display:none">
+    <use
+       sketch:type="MSShapeGroup"
+       xlink:href="#path-2"
+       id="use3830"
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:1;filter:url(#filter-1-9)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="matrix(0.7404928,0,9.0208313e-4,0.73873795,0.03248558,16.101035)" />
+    <use
+       xlink:href="#path-2"
+       id="use3832"
+       style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1;filter:url(#filter-1-9)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="translate(2.805085,2.9025421)" />
+    <use
+       xlink:href="#path-2"
+       id="use3834"
+       style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1;filter:url(#filter-1-9)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="translate(2.805085,2.9025421)" />
+    <use
+       xlink:href="#path-2"
+       id="use3836"
+       style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1;filter:url(#filter-1-9)"
+       x="0"
+       y="0"
+       width="100%"
+       height="100%"
+       transform="translate(2.805085,2.9025421)" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:none;stroke-width:1"
+       inkscape:connector-curvature="0"
+       sketch:type="MSShapeGroup"
+       id="path3847"
+       d="m 13.805085,13.902542 h 18 v 18 h -18 z" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="Icon"
+     transform="translate(0,466)">
+    <g
+       id="g5470"
+       transform="matrix(29.024944,0,0,28.444444,-400.69182,-861.45007)">
+      <path
+         d="m 31.445085,23.107088 c 0,-0.638182 -0.05727,-1.251819 -0.163636,-1.84091 h -8.476364 v 3.481364 h 4.843636 c -0.208636,1.125 -0.842727,2.078182 -1.795909,2.716364 v 2.258182 h 2.908637 c 1.701818,-1.566819 2.683636,-3.874091 2.683636,-6.615 z"
+         id="Shape"
+         sketch:type="MSShapeGroup"
+         inkscape:connector-curvature="0"
+         style="fill:#4285f4;fill-rule:evenodd;stroke:none;stroke-width:1" />
+      <path
+         d="m 22.805085,31.902542 c 2.43,0 4.467273,-0.805909 5.956364,-2.180454 l -2.908637,-2.258182 c -0.805909,0.54 -1.836818,0.859091 -3.047727,0.859091 -2.344091,0 -4.328182,-1.583182 -5.035909,-3.710455 h -3.006818 v 2.331818 c 1.480909,2.941364 4.524545,4.958182 8.042727,4.958182 z"
+         id="path3841"
+         sketch:type="MSShapeGroup"
+         inkscape:connector-curvature="0"
+         style="fill:#34a853;fill-rule:evenodd;stroke:none;stroke-width:1" />
+      <path
+         d="m 17.769176,24.612542 c -0.18,-0.54 -0.282273,-1.116818 -0.282273,-1.71 0,-0.593182 0.102273,-1.17 0.282273,-1.71 v -2.331818 h -3.006818 c -0.609546,1.215 -0.957273,2.589545 -0.957273,4.041818 0,1.452273 0.347727,2.826818 0.957273,4.041818 z"
+         id="path3843"
+         sketch:type="MSShapeGroup"
+         inkscape:connector-curvature="0"
+         style="fill:#fbbc05;fill-rule:evenodd;stroke:none;stroke-width:1" />
+      <path
+         d="m 22.805085,17.482088 c 1.321364,0 2.507727,0.45409 3.440455,1.345909 l 2.581363,-2.581364 c -1.558636,-1.452273 -3.595909,-2.344091 -6.021818,-2.344091 -3.518182,0 -6.561818,2.016818 -8.042727,4.958182 l 3.006818,2.331818 c 0.707727,-2.127273 2.691818,-3.710454 5.035909,-3.710454 z"
+         id="path3845"
+         sketch:type="MSShapeGroup"
+         inkscape:connector-curvature="0"
+         style="fill:#ea4335;fill-rule:evenodd;stroke:none;stroke-width:1" />
+    </g>
+  </g>
+</svg>

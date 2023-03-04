@@ -1,0 +1,14 @@
+.bs-stepper-navigation {
+    display: flex !important;
+    padding-right: 3rem !important;
+    padding-left: 3rem !important;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+.bs-stepper-content{
+    [role="tabpanel"] {
+        position: relative;
+        height: 100%;
+    }
+}

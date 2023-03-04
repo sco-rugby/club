@@ -1,0 +1,39 @@
+sonata_media:
+    class:
+        media: App\Entity\Media\Media
+        gallery: App\Entity\Media\Gallery
+        gallery_item: App\Entity\Media\GalleryItem
+    db_driver: doctrine_orm
+    default_context: default
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+                - sonata.media.provider.svg
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+        user:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                vignette: { width: 50 , quality: 70}
+                annuaire: { width: 80 , quality: 90}
+                profil: { width: 150 , quality: 90}
+        club:
+            providers:
+                - sonata.media.provider.image
+                - sonata.media.provider.svg
+            formats:
+                logo: { width: 80 , quality: 80}
+    cdn:
+        server:
+            path: /media
+    filesystem:
+        local:
+            directory: '%kernel.project_dir%/public/media'
+            create: false
+#    providers:
+#        image:
+#            thumbnail: sonata.media.thumbnail.messenger

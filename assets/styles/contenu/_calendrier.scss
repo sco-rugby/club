@@ -1,0 +1,105 @@
+.calendar{
+    .calendar-month{
+    }
+    .calendar-header{
+        @include title;
+    }
+    .calendar-days{
+        list-style: none;
+        padding: 0;
+    }
+    .calendar-day{
+        display: flex;
+        width: 100% !important;
+        border-left: 3px solid transparent;
+        padding-left: .2rem;
+        font-size: x-small;
+        &.weekday{
+            height: .3rem;
+        }
+        &.weekend{
+        }
+        &.vacances{
+            border-left-color: $green-200;
+        }
+        &.ferie{
+            border-left-color: $cyan;
+            height: fit-content;
+        }
+        &.deplacement{
+            border-left-color: $secondary !important;
+            color: $secondary !important;
+        }
+        &.reception{
+            border-left-color: $primary !important;
+            color: $primary !important;
+        }
+        .calendar-date{
+        }
+        .calendar-event{
+            margin-left: map-get($spacers, 2) !important;
+            background-color: $body-bg;
+        }
+        &.rencontre{
+            cursor: grab;
+            .calendar-event{
+                margin-left: map-get($spacers, 2) !important;
+            }
+        }
+    }
+    .droppable{
+        background-color: $gray-200;
+    }
+}
+
+
+
+
+/*.calendar{
+    margin:0px auto;
+    padding:0px;
+    width: 602px;
+    font-family:Helvetica, "Times New Roman", Times, serif;
+    .header{
+        line-height:40px;
+        vertical-align:middle;
+        position:absolute;
+        left:11px;
+        top:0px;
+        width:582px;
+        height:40px;
+        text-align:center;
+        .title{
+            color:#FFF;
+            font-size:18px;
+        }
+        .prev .next{
+            position:absolute;
+            top:0px;
+            height: 17px;
+            display:block;
+            cursor:pointer;
+            text-decoration:none;
+            color:#FFF;
+        }
+        .prev{
+            left:0px;
+        }
+        .next{
+            right:0px;
+        }
+    }
+    .box{
+        position:relative;
+        top:0px;
+        left:0px;
+        width:100%;
+        height:40px;
+        background-color:   #787878 ;
+    }
+    .box-content{
+        border:1px solid #787878 ;
+        border-top:none;
+    }
+
+}*/

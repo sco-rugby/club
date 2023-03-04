@@ -1,0 +1,34 @@
+body {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+main {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+[role="main"]{
+    height: 100%;
+}
+a {
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
+    &:focus {
+        outline: none;
+    }
+    img,&:link img,&:visited img {
+        border: none;
+    }
+}
+
+iframe{
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+
+

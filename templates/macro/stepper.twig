@@ -1,0 +1,99 @@
+{% macro stepper(id, steps = [], height = null) %}
+    <div id="{{ id }}" class="container bs-stepper">
+        {{ _self.stepper_header(steps) }}
+        {{ _self.stepper_content(steps, height) }}
+    </div>
+{% endmacro stepper %}
+{% macro stepper_header(steps = []) %}
+    <!-- steps -->
+    <div class="bs-stepper-header" role="tablist">
+        {% for item in steps %}
+            {% if item.icon is not defined %}
+                {% set item = item|merge({'icon': loop.index + 1}) %}
+            {% endif %}
+            {{ _self.step(item) }}
+            {% if loop.last is same as(false) %}
+                <div class="line"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endmacro stepper_header %}
+{% macro step(step) %}
+    <div class="step" data-target="#{{ step.id }}-step">
+        <button type="button" class="step-trigger" role="tab" aria-controls="{{ step.id }}-part" id="{{ step.id }}-step-trigger">
+            <span class="bs-stepper-circle">{{ step.icon|raw }}</span>
+            {% if step.label is defined %}
+                <span class="bs-stepper-label">{{ step.label }}</span>
+            {% endif %}
+        </button>
+    </div>
+{% endmacro step %}
+{% macro stepper_content(steps = [], height = null) %}
+    <!-- steps content -->
+    <div class="bs-stepper-content" style="height: {{ height }}">
+        {% for item in steps %}
+            {% if loop.first is same as(true) %}
+                {% set item = item|merge({'position': 'first'}) %}
+            {% elseif loop.last is same as(true) %}
+                {% set item = item|merge({'position': 'last'}) %}
+            {% else %}
+                {% set item = item|merge({'position': loop.index}) %}
+            {% endif %}
+            {{ _self.step_content(item) }}
+        {% endfor %}
+    </div>
+{% endmacro stepper_content %}
+{% macro step_content(step) %}
+    {% if step.buttons is not defined %}
+        {% set step = step|merge({'buttons': [{'role': 'previous', 'label':'toolbar.precedent'|trans, 'icon': '&lt;'}, {'role': 'next', 'label':'toolbar.suivant'|trans, 'icon': '&gt;', 'class': ['ms-auto','btn','btn-primary']}]}) %}
+    {% endif %}
+    <div id="{{ step.id }}-step" class="content" role="tabpanel" aria-labelledby="{{ step.id }}-step-trigger">
+        {{ step.content|raw }}
+        <div class="bs-stepper-navigation">
+            {% for key,button in step.buttons %}
+                {% if 'first' == step.position and  'previous' != button.role %}
+                    {{ _self.step_navigation(button) }}
+                {% elseif 'last' == step.position and  'next' != button.role %}
+                    {{ _self.step_navigation(button) }}
+                {% elseif step.position not in ['first', 'last'] %}
+                    {{ _self.step_navigation(button) }}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro step_content %}
+{% macro step_navigation(button) %}
+    {% set class = button.class|default(['btn','btn-primary']) %}
+    {% if 'next' == button.role %}
+        {% set class = class|merge(['ms-auto']) %}
+    {% endif %}
+    <button class="{{ class|join(' ') }}" role="{{ button.role }}">
+        {% set icon = null %}
+        {% set label = null %}
+        {% set content = null %}
+        {% if button.icon is defined %}
+            {% set icon =  button.icon|raw %}
+        {% endif %}
+        {% if button.label is defined %}
+            {% set label = button.label %}
+        {% endif %}
+        {% if 'next' == button.role %}
+            {% if icon is not empty and label is not empty%}
+                {% set content =  label ~ '<span class="ms-2">' ~ icon ~ '</span>' %}
+            {% elseif icon is not empty %}
+                {% set content =  icon %}
+            {% elseif label is not empty %}
+                {% set content = label %}
+            {% endif %}
+        {% else %}
+            {% if icon is not empty and label is not empty%}
+                {% set content =  '<span class="me-2">' ~ icon ~ '</span>' ~ label %}
+            {% elseif icon is not empty %}
+                {% set content =  icon %}
+            {% elseif label is not empty %}
+                {% set content = label %}
+            {% endif %}
+        {% endif %}
+        {{ content|raw }}
+    </button>
+{% endmacro step_navigation %}

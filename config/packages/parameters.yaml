@@ -1,0 +1,30 @@
+parameters:
+#    locale: fr
+#    culture: fr_FR
+#    mailer_user: Galahad
+#    mailer_address: no-reply@test.com
+    club:
+        code: 4182W
+    saison:
+        debut: 01/07
+    import:
+        report_path: '%kernel.project_dir%/var/log'
+    appli:
+        ovale-e:
+            description: ''
+            api_key: ''
+        odoo:
+            description: ''
+            api_key: ''
+#    socials:
+#        http:
+#            nom: 
+#            url_pattern: http://
+#            icon: fas fa-globe
+#        https:
+#            url_pattern: https://
+#        fb:
+#            url_pattern: https://www.facebook/
+#            icon: fab fa-facebook-f
+#        instragram:
+#            url_pattern: htpps://www.instagram.com/

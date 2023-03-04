@@ -1,0 +1,28 @@
+// Topbar
+.topbar {
+    background-color: $black;
+    color: $white;
+    ul {
+        margin-bottom: 0px;
+    }
+    /*@media (min-width: 1080px)
+        li {
+        display: inline-block;
+        margin-bottom: 0px;
+    }
+}*/
+    /*.nav-item {
+        margin-bottom: 16px;
+        vertical-align: top;
+    }*/
+    /*@media (min-width: 1080px)
+.topbar a {
+    padding: 0px 8px;
+}*/
+    .active {
+        color: $white;
+    }
+    .nav-link {
+        display: block;
+    }
+}

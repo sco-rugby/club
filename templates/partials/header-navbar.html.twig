@@ -1,0 +1,58 @@
+<nav id="applibar" class="container-fluid topbar px-3 py-1" aria-label="Navigation des applis">
+    <div class="navbar-brand p-0">
+        <div class="link-light fs-6">
+            <span>{{ 'app.libelle'|trans|raw }}</span>
+            <small>{{ version }}</small>
+        </div>
+    </div>
+    <!-- Menu -->
+    <div class="ms-auto d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <ul class="navbar-nav me-3">        
+            <li class="nav-item">
+                <a class="nav-link menu-link link-light notification"  href="{#{ path('app_notifications_index') }#}">
+                    {{ icon('bi-bell') }}
+                    <!--<span class="fa-layers fa-lg">
+                        <i class="far fa-bell"></i>
+                        <span class="fa-layers-counter fa-2x indicateur">3</span>
+                    </span>-->
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link menu-link link-light notification" href="{#{ path('app_messages_index') }#}">
+                    {{ icon('bi-envelope') }}
+                    <!--<span class="fa-layers fa-lg">
+                        <i class="far fa-envelope"></i>
+                        <span class="fa-layers-counter fa-2x indicateur">5</span>
+                    </span>-->
+                </a>
+            </li>
+        </ul>  
+        {#% if app.user is defined %#}
+        <div class="dropdown text-end">
+            <a id="dropdownUser1" href="#" class="d-block link-light text-decoration-none dropdown-toggle profil" data-bs-toggle="dropdown" aria-expanded="false">
+                {#% media app.user.avatar, 'vignette'  with {'class': 'img-fluid image-sm'} %#}
+                <i class="bi bi-person-circle menu-icon"></i>
+                <span class="profil-info nav-label">
+                    {#{ app.user.username }#}
+                </span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
+                <li>
+                    <a class="dropdown-item" href="#">New project...</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Settings</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Profile</a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" href="#">Sign out</a>
+                </li>
+            </ul>
+        </div>
+        {#% endif %#}
+    </div>
+</nav>

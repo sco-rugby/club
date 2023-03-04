@@ -1,0 +1,121 @@
+$chip-sizes:(
+sm: (height: $chip-height * .75, border-radius: 21px),
+md: (height: $chip-height * 1.3, border-radius: 21px),
+lg: (height: $chip-height * 1.6, border-radius: 26px),
+);
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    height: $chip-height;
+    color: $card-color;
+    background-color: $chip-bg;
+    margin-right: 0.5em;
+    padding: $badge-padding-y $badge-padding-x;
+    border: {
+        color:  $chip-border-color;
+        style:  solid;
+        width:  $chip-border-width;
+        radius: $border-radius-pill;
+    }
+    &:focus {
+        outline: none;
+        background-color: $component-active-bg;
+        color: $white;
+    }
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+        height: inherit;
+        margin: 0 $chip-spacer-x 0 -#{$badge-padding-x};
+        padding: $chip-icon-padding;
+        border: {
+            color:  $chip-border-color;
+            style:  solid;
+            width:  $chip-border-width;
+            radius: 100%;
+        }
+    }
+    img, svg {
+        height: auto;
+    }
+    // Size
+    @each $size, $params in $chip-sizes {
+        &.chip-#{$size} {
+            height: map-get($params, "height");
+            .icon {
+                width: map-get($params, "height");
+            }
+        }
+    }
+    .close{
+        cursor: pointer;
+        font-size: 1em;
+        line-height: $chip-height;
+        margin-left: 8px;
+
+
+        /*float: right;
+        padding-left: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        -webkit-transition: opacity .15s linear;
+        transition: opacity .15s linear;
+        opacity: .53;*/
+    }
+    &.chip-filter{
+        $chip-filter-height: calc($chip-height/2);
+        height: $chip-filter-height;
+        line-height: $chip-filter-height;
+        background-color: transparent;
+        & > * {
+            font-size: .8em;
+        }
+        //.close {
+        //    line-height: $chip-filter-heigh;
+        //}
+    }
+    @each $name, $color in $colors {
+        &.text-#{$name} > * {
+            color: $color !important;
+        }
+    }
+    @each $name, $color in $colors {
+        &.bg-#{$name}{
+            background-color: rgba(red($color), green($color), blue($color), .2) !important;
+            border-color: $color !important;
+            & * {
+                color: $color !important;
+            }
+        }
+    }
+}
+
+/*@include media-breakpoint-up('sm'){
+    .chips {
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        
+    }
+}*/
+
+// Form prefix
+.prefix ~ .chips {
+    margin-left: 3rem;
+    width: 92%;
+    width: calc(100% - 3rem);
+}
+.chips:empty ~ label  {
+    font-size: 0.8rem;
+    transform: translateY(-140%);
+}

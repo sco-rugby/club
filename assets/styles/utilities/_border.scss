@@ -1,0 +1,5 @@
+.separator{
+    > *:not(:first-child){
+        border-left: $border-width solid $border-color;
+    }
+}

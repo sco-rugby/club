@@ -1,0 +1,54 @@
+$messages:(
+warning: $warning,
+danger: $danger,
+not-found: $info,
+unavailable: $danger,
+parameter: $orange,
+success: $success,
+);
+
+.message, .error {
+    display: block;
+    width: 100%;
+    padding: map-get($spacers, 5) 0;
+    line-height: 1.6em;
+    text-align: center;
+
+    p {
+        display: block;
+        margin: map-get($spacers, 4);
+        padding: 0;
+        font-size: 1.2em;
+    }
+    .title, .code {
+        margin: 0;
+        padding: 0;
+    }
+    .title {
+        display: block;
+        margin-bottom: map-get($spacers, 2);
+        font-size: 3em;
+        text-transform: uppercase;
+    }
+    .code {
+        display: inline-block;
+        padding: 0 0 map-get($spacers, 3) 0;
+        font-size: 5em;
+        font-weight: bold;
+        border:{
+            width: 1px 0;
+            style: solid;
+        }
+        text-transform: lowercase;
+        line-height: initial;
+    }
+    @each $message, $color in $messages {
+        &.text-#{$message}{
+            .code, .title {
+                color: $color;
+                border-color: $color;
+            }
+        }
+    }
+
+}

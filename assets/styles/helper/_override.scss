@@ -1,0 +1,20 @@
+$enable-gradients: true;
+$enable-shadows: true;
+
+$red:      #e01d1e;
+
+$primary:   #000;
+$secondary: $red;
+//$dark:      $navy;
+
+$light: #e9ecef; //gray-200
+$body-bg: #f5f7fa;
+
+$font-family-sans-serif: 'Roboto', sans-serif;
+$font-family-monospace:  'Roboto Mono', monospace;
+
+// Navs
+$nav-link-padding-y: .3rem;
+$nav-tabs-link-active-bg: #fff;
+
+$card-box-shadow: 0 .5rem 1rem rgba(0,0,0, 15%);

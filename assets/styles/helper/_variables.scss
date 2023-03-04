@@ -1,0 +1,119 @@
+/**
+ * Ajout de variables
+ */
+$font-family-condensed:       "Roboto Condensed", sans-serif;
+$label-font-family:           $font-family-condensed;
+$headings-font-family:        $font-family-sans-serif;
+
+// Btn
+$input-btn-padding-y-sm:      .25rem !default;
+$input-btn-padding-x-sm:      .5rem !default;
+
+//List
+$list-icon-size: 1.2em !important;
+$list-group-item-padding-y: .5rem;
+$list-group-item-padding-x: .7rem;
+$list-icon-spacing: $list-group-item-padding-x;
+
+//Panel
+$panel-width: 300px;
+$transition-panel-h: left .35s ease;
+
+// Z-index
+$zindex-loading-backdrop: 2000;
+$zindex-loading: $zindex-loading-backdrop + 10;
+
+// LAYOUT
+// --------------------------------------------------------
+// Navbar
+$navbar-spacing-y: .5em;
+$navbar-dropdown-radius: 4px;
+$navbar-dropdown-spacing-x: 15px;
+$navbar-dropdown-spacing-y: 5px;
+$navbar-dropdown-padding-x: 10px;;
+$navbar-dropdown-padding-y: 7px;
+
+//Nav
+$nav-icon-size: 1.5em;
+$nav-tabs-link-active-color: $green;
+$nav-label-letter-spacing: .125em;
+
+// Sidebar
+$sidebar-base-width: 250px;
+$sidebar-club-width: 50px;
+$sidebar-md-width: 185px;
+$sidebar-collapsed-width: 70px;
+$sidebar-padding-x: 0;
+$sidebar-padding-y: 30px;
+$sidebar-item-height: 52px;
+$sidebar-item-width: 200px;
+$sidebar-item-padding-x: 1.25rem;
+$sidebar-item-padding-y: .5rem;
+
+// Content padding
+$content-padding-y: 0;
+$content-padding-x: 1rem;
+
+// Spacing Variables
+$topbar-base-height: 5vh;
+$sidebar-base-width: 14rem !default;
+$sidebar-collapsed-width: 6.5rem !default;
+
+
+// Chips
+$min-height:         45px;
+$chip-spacer-y:      0;
+$chip-spacer-x:      $badge-padding-y;
+$chip-icon-padding:  .25em;
+$chip-border-width:  1px;
+//$chip-border-radius: 16px;
+$chip-border-color:  $gray-600;
+$chip-height:        2em;
+$chip-color:         $gray-800;
+$chip-bg :           $gray-300;
+
+// Images
+$login-image: 'https://source.unsplash.com/K4mSJ7kc0As/600x800' !default;
+$register-image: 'https://source.unsplash.com/Mv9hjnEUHR4/600x800' !default;
+$password-image: 'https://source.unsplash.com/oWTW-jNGl9I/600x800' !default;
+
+// Icons
+$icon-spacing: map-get($spacers, 2);
+$menu-icon-size: 1em !important;
+$menu-icon-spacing: $navbar-spacing-y;//1rem;
+
+$score-win-color: $green;
+$score-loss-color: $black;
+
+// TRANSITIONS SETTINGS
+// --------------------------------------------------------
+
+// Transition global options
+$transition-speed: 0.3s;
+$transition-fn: ease-in-out;
+
+$semantics:(
+note: ( color: $blue, text-color: $black),
+info: ( color: $cyan, text-color: $black),
+hint: ( color: $green, text-color: $green),
+alerte: ( color: $orange, text-color: $orange ),
+question: ( color: $black, text-color: $gray-500 ),
+//erreur: ( color: $red, text-color: $deep-red ),
+);
+
+//Placeholder
+$placeholer-size: 75%;
+$placeholer-color: $body-color;
+
+//List
+$list-icon-size: $nav-icon-size !important;
+$list-icon-spacing: $navbar-spacing-y;
+
+$custom-control-indicator-bg: $white;
+$custom-control-indicator-checked-color: $gray-500;
+$custom-control-indicator-checked-border-color: $gray-500;
+$custom-control-indicator-checked-bg: $custom-control-indicator-bg;
+
+$scrollbar-width: 6px;
+$scrollbar-color: $gray-800;
+$scrollbar-bg: $gray-400;

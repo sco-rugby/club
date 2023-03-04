@@ -1,0 +1,39 @@
+.avatar-image {
+    display: inline-block;
+    position: relative;
+}
+
+.avatar-image--loaded .avatar-image__image {
+    visibility: visible;
+}
+
+.avatar--md {
+    width: 30px;
+    height: 30px;
+}
+.avatar-image__image {
+    position: relative;
+    visibility: hidden;
+    z-index: 0;
+}
+.avatar {
+    position: relative;
+    display: inline-block;
+}
+.avatar__content {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    -webkit-mask-image: -webkit-radial-gradient(#fff,#000);
+}
+.avatar-image__image img {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}

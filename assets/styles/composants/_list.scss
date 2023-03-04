@@ -1,0 +1,30 @@
+.scrollarea {
+    overflow-y: auto;
+    @include scrollbar;
+}
+
+.list-group{
+    $theme-colors: map-merge(("primary": $primary, "secondary": $secondary), $colors);
+    @each $name, $color in $theme-colors {
+        &.#{$name}{
+            .list-group-item-action{
+                border-left:{
+                    width: 3px;
+                    style: solid;
+                    color: transparent;
+                }
+                &.active{
+                    background-color: $color;
+                    border-color: $color;
+                    color: color-contrast($color);
+                    &::after{
+                        border-left-color: $color;
+                    }
+                }
+                &:hover, &:focus {
+                    border-left-color: $color;
+                }
+            }
+        }
+    }
+}

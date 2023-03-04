@@ -1,0 +1,14 @@
+{% import "macro/filter.twig" as filter %}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="context-canvas" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{ icon('bi-tags')}}<span class="ms-2">{{ 'context.libelle'|trans }}</span></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="accordion accordion-flush" id="contextAccordion">
+            {{ render(path('environment_filter', {groupe: 'context', collapsed: true})) }}
+            {{ render(path('site_filter', {groupe: 'context', collapsed: true})) }}
+            {{ render(path('application_filter', {groupe: 'context', collapsed: true})) }}
+        </div>
+    </div>
+</div>

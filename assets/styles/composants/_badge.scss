@@ -1,0 +1,18 @@
+.badge{
+    font-family: $font-family-monospace;
+    align-self: center !important;
+    min-width: 1.5rem;
+}
+.badge-counter {
+    position: absolute;
+    transform: scale(0.7);
+    transform-origin: top right;
+    right: .25rem;
+    margin-top: -.25rem;
+}
+@each $color, $value in $theme-colors {
+    .badge-outline-#{$color} {
+        border: 1px solid $value !important;
+        color: $value !important;
+    }
+}

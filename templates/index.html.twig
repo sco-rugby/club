@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <header class="navbar navbar-expand-md p-0 border-bottom bg-white shadow d-flex flex-column">
+        {{ include('partials/header-navbar.html.twig') }}
+    </header>
+    <main role="main" class="container-fluid p-0">
+        <div class="row h-100">
+            {{ include('partials/appli-sidebar.html.twig') }}
+            <div id="content" class="col mt-4"></div>
+        </div>
+    </main>
+{% endblock %}

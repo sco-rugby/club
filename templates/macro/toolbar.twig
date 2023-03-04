@@ -1,0 +1,82 @@
+{# buttons #}
+{% macro buttons(toolbar, options=[]) %}
+    {# class #}
+    {% set class = options.class|default([]) %}
+    {% set class = ['btn-group', 'btn-group-sm']|merge(class) %}
+    <div class="btn-toolbar" role="toolbar">
+        <div class="{{ class|join(' ') }}" role="group">
+            {% for item in toolbar %}
+                {{ item.label|button(item) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+{# icons #}
+{% macro icons(toolbar, options=[]) %}
+    {# class #}
+    {% set class = options.class|default([]) %}
+    {% set class = ['header-tools']|merge(class) %}
+    <ul class="{{ class|join(' ') }}">
+        {% for item in toolbar %}
+            <li class="header-tool">
+                {{ _self.icon(item) }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+{# js_toolbar #}
+{% macro js_toolbar(toolbar, options=[]) %}
+    {% set after = [] %}
+    {% if options.after is defined %}
+        {% set after = options.after %}
+    {% endif %}
+    {% for item in toolbar %}
+        {% set afterItem = after %}
+        {% if item.after is defined %}
+            {% set afterItem = afterItem|merge(item.after) %}
+        {% endif %}
+        {{ _self.js(item, afterItem) }}
+    {% endfor %}
+{% endmacro %}
+{# btn #}
+{% macro btn(item) %}
+    {% if item.label is not defined %}
+        {% set item = item|merge({'label': null }) %}
+    {% endif %}
+    {{ button(item.label, item) }}
+{% endmacro btn %}
+{# icon #}
+{% macro icon(item) %}
+    {# data #}
+    {% set data = item.data|default([]) %}
+    {% if data.type is not defined %}
+        {% set data = data|merge({'type': 'action'}) %}
+    {% endif %}
+    {% set data = data|merge({'tool': item.action}) %}
+    {% set data = data|merge({'action': item.action}) %}
+    {% set attr = [] %}
+    {% if item.attr is defined %}
+        {% set attr = item.attr %}
+    {% endif %}
+    {% if item.id is defined %}
+        {% set attr = attr|merge({'id': item.id}) %}
+    {% endif %}
+    {% for key, value in data %}
+        {% set name = "data-#{key}" %}
+        {% set attr = attr|merge({ (name) : value}) %}
+    {% endfor %}
+    {# render a tag #}
+    {% if item.icon is not defined %}
+        {% set item = {"icon": '#' ~ item.action} %}
+    {% endif %}
+    {{ content('a', icon(item.icon), attr) }}
+{% endmacro icon %}
+{# fixed_action_btn #}
+{% macro fixed_action_btn(item) %}
+    {% set class = item.class|default([]) %}
+    {% set class = class|merge(['btn-outline-secondary', 'btn-floating', 'btn-lg']) %}
+    {% set item = item|merge({'class': class})  %}
+    <div class="fixed-action-btn">
+        {{ _self.btn(item) }}
+    </div>
+{% endmacro fixed_action_btn %}

@@ -1,0 +1,5 @@
+/*@each $size, $value in $fa-sizes {
+    .icon-#{$size} {
+        @include icon(fa-divide($value, $fa-size-scale-base) * 1em);
+    }
+}*/

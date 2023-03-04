@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="{{ app.request.locale|split('_')|first|default('fr') }}">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, noimageindex, notranslate, nocache" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+        <title>{% block title %}{{ 'app.libelle'|trans|striptags }}{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('build/images/favicon.png') }}" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/svg+xml" href="{{ asset('build/images/sco-rugby.svg') }}"/>
+        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
+    </head>
+    <body>
+        {% block body %}{% endblock body %}
+        <div id="chargement" style="display: none">
+            <div class="double-bounce">
+                <div class="bounce-child double-bounce1"></div>
+                <div class="bounce-child double-bounce2"></div>
+            </div>
+            <h2 class="mt-1" style="color: white">{{ 'chargement.message'|trans }}</h2>
+        </div>
+
+    </body>
+</html>

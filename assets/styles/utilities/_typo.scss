@@ -1,0 +1,147 @@
+/* Typographie */
+small{
+    font-family: "Open Sans Condensed", sans-serif;
+    //font-size: 70% !important;
+}
+address::before {
+    @include before;
+    color: $red;
+    content: "\f3c5";
+}
+
+time{
+    &::before{
+        @include before;
+    }
+    &.date::before {
+        font-weight: 400 !important;
+        content: map-get($bootstrap-icons-map, "calendar");
+    }
+    &.heure::before {
+        font-weight: 400 !important;
+        content: map-get($bootstrap-icons-map, "clock");
+    }
+}
+.fw-light, .fw-lighter {
+    font:{
+        family: $font-family-monospace;
+    }
+}
+.metadata{
+    font:{
+        family: "Open Sans Condensed", sans-serif;
+        size: 13px !important;
+    }
+}
+.navbar{
+    .navbar-nav{
+        .nav-item{
+            &.dropdown{
+                .navbar-dropdown {
+                    .dropdown-item {
+                        &.dropdown-header{
+                            font-size: 14px !important;
+                        }
+                        &.dropdown-footer{
+                            font-size: 12px !important;
+                        }
+                    }
+                }
+            }
+        }
+        .nav-label{
+            letter-spacing: $nav-label-letter-spacing;
+        }
+    }
+}
+
+.content{
+    & > header, .content-header {
+        .heading {
+            @include title;
+            font:{
+                //family: $font-family-monospace;
+                size: 1.7rem !important;
+            }
+        }
+        .excerpt{
+            @include excerpt;
+        }
+        small {
+            font-size: small !important; 
+        }
+        .breadcrumb {
+            font-size: 12px !important;
+        }
+    }
+}
+.score {
+    font:{
+        family: 'Anton';
+    }
+    mark {
+        font-weight: bolder;
+    }
+}
+.adversaires {
+    font:{
+        style: normal;
+    }
+}
+.nav-heading{
+    font:{
+        family: $headings-font-family;
+        size: .75em !important;
+    }
+    text-transform: uppercase;
+    text-overflow: clip;
+}
+.menu-label {
+    font-size: 0.875rem;
+}
+.sidebar{
+    .nav-item{
+        &.active, &:hover{
+            .menu-link{
+                font-weight: bold;
+            }
+        }
+    }
+}
+.sub-menu{
+    .nav-item{
+        .menu-link{
+            font-weight: normal;
+        }
+        &.active, &:hover{
+            .menu-link{
+                font-weight: bold;
+            }
+        }
+    }
+}
+.metadata {
+    .club::before, &.club::before{
+        @include before;
+        content: map-get($bootstrap-icons-map, "shield-shaded");
+    }
+    .user::before, &.user::before{
+        @include before;
+        content: map-get($bootstrap-icons-map, "person-circle");
+    }
+}
+.status-icon{
+    position: absolute !important;
+    transform: translate(-50%, -50%) !important;
+    left: 65%;
+    top: 100%;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    background-color: var(--bs-light);
+    $themes: map-merge(("muted": $text-muted), $theme-colors);
+    @each $color, $value in $themes {
+        &.text-#{$color} {
+            border-color: $value !important;
+        }
+    }
+}

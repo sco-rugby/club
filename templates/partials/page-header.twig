@@ -1,0 +1,13 @@
+<section class="content-header my-3">
+    <span>
+        <span class="heading">{{ header.label|trans }}</span>
+        <small>{{header.desc|trans }}</small>
+    </span>
+    {%  if breadcrumb is defined %}
+        <ol class="ms-auto breadcrumb">
+            {% for item in breadcrumb %}
+                <li>{{ item|trans }}</li>
+                {% endfor %}
+        </ol>
+    {% endif %}
+</section>

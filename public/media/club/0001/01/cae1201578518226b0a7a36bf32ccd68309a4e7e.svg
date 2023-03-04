@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="80"
+   height="80"
+   viewBox="0 0 21.166666 21.166667"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="treilleres.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="8.2024386"
+     inkscape:cx="39.402428"
+     inkscape:cy="37.815935"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="px" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="logo"
+     style="display:inline"
+     transform="translate(0,-275.83332)">
+    <g
+       id="g943"
+       transform="matrix(0.34042815,0,0,0.34042756,1.4890819,276.24038)">
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path91"
+         d="M 2.7960505,6.5397009 C 18.321816,1.9917083 34.254998,1.8234356 50.657855,6.7041746 50.864229,7.726522 54.431726,38.647071 26.891427,56.621899 -1.9313086,38.046195 2.7960505,6.5397009 2.7960505,6.5397009 Z"
+         style="display:inline;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#4a5ea3;stroke-width:0.79374999;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         transform="scale(0.86830158,1.1516736)"
+         id="text923"
+         y="16.016298"
+         x="30.686363"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:12.27928543px;line-height:89.99999762%;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#4a5ea3;fill-opacity:1;stroke:none;stroke-width:0.30698216px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.50240517px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:#4a5ea3;fill-opacity:1;stroke-width:0.30698216px"
+           y="16.016298"
+           x="30.686363"
+           id="tspan921"
+           sodipodi:role="line">STADE TREILLIERAIN</tspan></text>
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path925"
+         d="M 4.1138183,8.0808899 C 3.863326,10.185931 3.9263223,11.9327 4.0509034,13.609086 l 45.3714186,0.02328 -0.02031,-5.5485082 z"
+         style="fill:#4a5ea3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path927"
+         d="m 4.5230227,19.286393 44.6719123,-0.01932 c -0.141926,1.76052 -0.455053,3.578107 -0.921947,5.446949 L 5.4276272,24.796263 C 4.8691727,22.902546 4.5942975,21.071847 4.5230227,19.286393 Z"
+         style="fill:#4a5ea3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path929"
+         d="m 6.9901259,30.388359 39.4716731,-0.02031 c -0.570705,1.889557 -1.31125,3.730588 -2.261015,5.511842 L 9.3749925,35.815984 C 8.2324656,33.817191 7.5407019,32.064269 6.9901259,30.388359 Z"
+         style="fill:#4a5ea3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path931"
+         d="m 12.679563,41.434375 28.294307,0.02687 c -1.294034,1.915341 -2.861179,3.694126 -4.460741,5.456703 H 17.10525 C 15.28433,44.950537 14.305604,44.072089 12.679563,41.43437 Z"
+         style="fill:#4a5ea3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="cccc"
+         inkscape:connector-curvature="0"
+         id="path933"
+         d="m 23.379331,52.684503 6.71933,-0.09222 c -0.879485,0.860436 -1.789216,1.71079 -3.352609,2.343257 -1.767171,-0.92928 -2.369844,-1.46181 -3.366721,-2.251036 z"
+         style="fill:#4a5ea3;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>

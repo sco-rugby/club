@@ -1,0 +1,122 @@
+$filter-bg-color: $primary;
+$filter-bar-bg: $card-bg;
+$filter-border-color: $border-color;
+$filter-border-width: $border-width;
+$filter-border-radius: $border-radius; //15px;
+$filter-separator-color: $gray-500;
+
+/*.filter-box {
+    padding: 10px;
+    .item-box {
+        height: 15em;
+        max-height: 15em;
+    }
+}*/
+.filtre{
+    &.accordion{
+        .scrollarea {
+            height: 15em;
+            max-height: 15em;
+        }
+    }
+}
+.filter-radio, .filter-checkbox {
+    //padding: 6px 10px;
+    //background-color: $gray-100 !important;
+
+    &.border{
+        border-radius: 12px;
+    }
+    label {
+        display: block;
+        position: relative;
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin: 0;
+        padding-left: 1.75rem;
+        margin: 0;
+    }
+    input {
+        opacity: 0;
+        &:checked {
+            & ~ .checkmark{
+                background-color: $filter-bg-color;
+            }
+        }
+    }
+    .checkmark {
+        position: absolute;
+        left: 0;
+        background-color: $input-bg;
+        border: $input-border-width solid $input-border-color;
+        &::after {
+            content: "";
+            position: absolute;
+        }
+    }
+    &:hover{
+        .checkmark {
+            background-color: lighten($filter-bg-color, 30%);
+        }
+    }
+}
+
+.filter-radio {
+    input {
+        &:checked{
+            & ~ .checkmark{
+                transition: 300ms ease-in-out 0s;
+                &::after {
+                    display: block;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+            }
+        }
+    }
+    .checkmark {
+        top: 0px;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        &::after {
+            width: 9px;
+            height: 9px;
+            display: block;
+            background: white;
+            top: 52%;
+            left: 51%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: 300ms ease-in-out 0s;
+        }
+    }
+}
+
+.filter-checkbox {
+    input {
+        &:checked, &.jplist-selected  {
+            & ~ .checkmark{
+                &::after {
+                    display: block;
+                    transform: rotate(45deg) scale(1);
+                }
+            }
+        }
+    }
+    .checkmark {
+        top: 1px;
+        height: 18px;
+        width: 18px;
+        border-radius: 3px;
+        &::after {
+            display: none;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid rgb(0, 0, 0);
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg) scale(2)
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.footerbar{
+    height: $topbar-base-height;
+    box-shadow: 0 -.05rem .5rem rgba($black, .5);
+    & > * {
+        height: 100%;
+    }
+    .navbar{
+        padding: 0;
+    }
+    .nav-item{
+        border-top: 3px solid transparent;
+    }
+}

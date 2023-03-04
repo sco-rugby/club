@@ -1,0 +1,30 @@
+[data-tool]{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    color: var(--gray);
+    &:hover{
+        text-decoration: none;
+        background-color: $gray-300;
+        border-radius: 50%;
+    }
+    &:disabled ,&.disabled{
+        color: $gray-400;
+        cursor: not-allowed;
+    }
+}
+
+[type="search"] {
+    -webkit-appearance: textfield;
+    outline-offset: -2px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &, &:hover, &:focus {
+        transition: all .1s ease-in-out;
+    }
+    &:focus-visible {
+        outline: -webkit-focus-ring-color none;
+    }
+}
